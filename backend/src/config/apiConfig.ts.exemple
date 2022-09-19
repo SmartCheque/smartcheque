@@ -1,0 +1,8 @@
+const apiConfig = {
+  mailjet: {
+    apiKey: 'key',
+    apiSecret: 'secret',
+  },
+}
+
+export default apiConfig

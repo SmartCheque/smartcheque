@@ -1,0 +1,99 @@
+{
+  "network": [
+    {
+      "name" : "ganache",
+      "url": "http://127.0.0.1:8545",
+      "chainId": 1337,
+      "faucetAmount": 1
+    },
+    {
+      "name" : "Emerald Testnet",
+      "url": "https://testnet.emerald.oasis.dev",
+      "faucet" : "https://faucet.testnet.oasis.dev/",
+      "chainId": 42261,
+      "tokenName": "TEST",
+      "timeBetweenRequest" : 10,
+      "retry" : 2,
+      "faucetAmount": 1
+    },
+    {
+      "name" : "Emerald",
+      "url": "https://emerald.oasis.dev",
+      "chainId": 42262,
+      "tokenName": "ROSE",
+      "retry" : 2
+    },
+    {
+      "name" : "Emerald Testnet",
+      "url": "https://testnet.emerald.oasis.dev",
+      "faucet" : "https://faucet.testnet.oasis.dev/",
+      "chainId": 42261,
+      "tokenName": "TEST",
+      "timeBetweenRequest" : 10,
+      "retry" : 2
+    },
+    {
+      "name" : "Optimism Testnet",
+      "url" : "https://kovan.optimism.io",
+      "faucet" : "https://optimismfaucet.xyz/",
+      "chainId": 69,
+      "tokenName": "TEST",
+      "timeBetweenRequest" : 10,
+      "retry" : 2
+    },
+    {
+      "name" : "Skale Testnet",
+      "url" : "https://hackathon.skalenodes.com/v1/downright-royal-saiph",
+      "faucet" : "https://hackathon.skale.network/",
+      "chainId": 1085866509,
+      "tokenName": "TEST",
+      "timeBetweenRequest" : 10,
+      "retry" : 2
+    },
+    {
+      "name" : "Arbitrum Testnet",
+      "url": "https://rinkeby.arbitrum.io/rpc",
+      "faucet": "https://fauceth.komputing.org/?chain=421611",
+      "chainId": 421611,
+      "tokenName": "ETH",
+      "timeBetweenRequest" : 1000,
+      "retry" : 2,
+      "refreshBalance" : 10000
+    },
+    {
+      "name" : "Polygon Testnet",
+      "url": "https://rpc-mumbai.matic.today",
+      "faucet": "https://faucet.polygon.technology/",
+      "chainId": 80001,
+      "tokenName": "MATIC",
+      "timeBetweenRequest" : 1000,
+      "refreshBalance" : 10000,
+      "retry" : 16
+    },
+    {
+      "name" : "Polygon Mainnet",
+      "url": "https://rpc-mainnet.matic.network",
+      "chainId": 137,
+      "tokenName": "MATIC",
+      "timeBetweenRequest" : 1000,
+      "refreshBalance" : 20000,
+      "retry" : 16
+    },
+    {
+      "name" : "Cronos testnet",
+      "url": "https://evm-t3.cronos.org",
+      "faucet": "https://cronos.org/faucet",
+      "chainId": 338,
+      "tokenName": "TEST",
+      "retry" : 2
+    },
+    {
+      "name" : "Boba testnet",
+      "url": "https://rinkeby.boba.network",
+      "faucet": "",
+      "chainId": 28,
+      "tokenName": "TEST",
+      "retry" : 2
+    }
+  ]
+}

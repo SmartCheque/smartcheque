@@ -1,0 +1,93 @@
+html, body {
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+  background-image: url('../public/background/background.jpeg');
+  overflow-y: hidden;
+}
+
+.App {
+  position: absolute;
+  top: 8.5em;
+  bottom: 0px;
+  width:100%;
+  overflow-y: auto;
+}
+
+.AppScrool {
+  position: fixed;
+  bottom: 0px;
+
+}
+
+@media (min-width: 768px) {
+  .App {top: 3.5em;}
+}
+
+.App-logo {
+  /* height: 40vmin; */
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    /* animation: App-logo-spin infinite 20s linear; */
+  }
+}
+
+#user-widget {
+  margin-right: 1em;
+}
+
+#wallet-widget .circle-icon {
+  width: 10px;
+  margin-right: 8px;
+}
+
+#wallet-widget .circle-icon.ok {
+  fill: hsl(141, 71%, 48%);
+}
+
+#wallet-widget .circle-icon.fail {
+  fill: hsl(348, 100%, 61%);
+}
+
+#wallet-widget .circle-icon.warn {
+  fill: hsl(48, 100%, 67%);
+}
+
+
+.toast-header .btn-box {
+    margin-right: -.375rem;
+    margin-left: .75rem;
+}
+
+.toast {
+  background-color: '#ffffff10';
+}
+
+.boxWidget {
+  background-color: '#ffffff10';
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.flexCentered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

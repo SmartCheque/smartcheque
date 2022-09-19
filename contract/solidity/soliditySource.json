@@ -1,0 +1,33 @@
+{
+  "outputPath": "compiled/",
+  "outputCopyPath": "../ui/src/contract/solidity/compiled",
+  "ContractGeneric": "../../../util/ContractGeneric",
+  "TransactionManager" : "../../../util/TransactionManager",
+  "file": [
+    {
+      "contract": "NFT",
+      "arg": [
+        {
+          "name": "_owner",
+          "type": "string"
+        },
+        {
+          "name": "_royaltyFraction",
+          "type": "number"
+        },
+        {
+          "name": "_reicever",
+          "type": "string"
+        },
+        {
+          "name": "_baseURI",
+          "type": "string"
+        },
+        {
+          "name": "_contractHash",
+          "type": "ethers.BigNumber"
+        }
+      ]
+    }
+  ]
+}

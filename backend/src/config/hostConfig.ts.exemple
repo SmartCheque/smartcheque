@@ -1,0 +1,6 @@
+const hostConfig = {
+  port: 8980,
+  origin: "http://localhost:8981",
+}
+
+export default hostConfig

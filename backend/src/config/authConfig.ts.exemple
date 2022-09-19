@@ -1,0 +1,5 @@
+const authConfig = {
+  secret: "jrastit-secret-key"
+}
+
+export default authConfig
