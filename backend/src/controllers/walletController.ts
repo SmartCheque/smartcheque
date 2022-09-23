@@ -1,7 +1,7 @@
 import db from '../models'
 const Wallet = db.wallet
 import { RequestHandler } from 'express'
-import { faucet, checkFaucet } from 'ethers-network'
+import { faucet, checkFaucet } from 'ethers-network/faucet'
 import { Transaction } from 'sequelize'
 
 

@@ -4,7 +4,7 @@ import { Server } from 'http'
 import * as ethers from 'ethers'
 import models from '../models'
 
-import { getProvider, getNetwork } from 'ethers-network/src/util/faucet'
+import { getProvider, getNetworkFromName } from 'ethers-network/network'
 
 const networkName = "ganache"
 //const networkName = "Emerald Testnet"
@@ -29,8 +29,12 @@ const testServer = () => {
 
   beforeAll(async () => {
     server = appInit()
-    const network = getNetwork(networkName)
-    provider = getProvider(network)
+    const network = getNetworkFromName(networkName)
+    const providerTmp = getProvider(network)
+    expect(providerTmp).toBeDefined
+    if (providerTmp) {
+      provider = providerTmp
+    }
     //await sleep(1000);
   })
 

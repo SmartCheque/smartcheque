@@ -1,7 +1,7 @@
 import { BigNumber, utils as ethersUtils } from 'ethers'
 import ethers from 'ethers'
 
-import TimerSemaphore from './TimerSemaphore'
+import TimerSemaphore from '../util/TimerSemaphore'
 import { ReplayScript } from './ReplayScript'
 
 export enum TransactionInfoType {

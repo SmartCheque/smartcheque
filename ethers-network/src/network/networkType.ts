@@ -18,7 +18,8 @@ type NetworkType = {
   retry?: number
   refreshBalance?: number
   host?: string
-  default?: boolean
+  default?: boolean,
+  warningBalance?: number,
 }
 
 export type { NetworkType }

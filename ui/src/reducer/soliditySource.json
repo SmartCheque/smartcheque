@@ -1,0 +1,116 @@
+{
+  "outputPath": "compiled/",
+  "outputCopyPath": "../ui/src/contract/solidity/compiled",
+  "ContractGeneric": "../../../util/ContractGeneric",
+  "TransactionManager" : "../../../util/TransactionManager",
+  "file": [
+    {
+      "contract": "NFT",
+      "arg": [
+        {
+          "name": "_owner",
+          "type": "string"
+        },
+        {
+          "name": "_royaltyFraction",
+          "type": "number"
+        },
+        {
+          "name": "_reicever",
+          "type": "string"
+        },
+        {
+          "name": "_baseURI",
+          "type": "string"
+        },
+        {
+          "name": "_contractHash",
+          "type": "ethers.BigNumber"
+        }
+      ]
+    },
+    {
+      "contract": "Alketh",
+      "arg": [
+        {
+          "name": "_contractHash",
+          "type": "ethers.BigNumber"
+        }
+      ]
+    },
+
+    {
+      "contract": "GameManager",
+      "arg": [
+        {
+          "name": "_alketh",
+          "type": "ethers.Contract"
+        },
+        {
+          "name": "_cardList",
+          "type": "ethers.Contract"
+        }
+      ]
+    },
+    {
+      "contract": "GameList",
+      "arg": [
+        {
+          "name": "_gameManager",
+          "type": "ethers.Contract"
+        },
+        {
+          "name": "_playGameFactory",
+          "type": "ethers.Contract"
+        },
+        {
+          "name": "_playActionLib",
+          "type": "ethers.Contract"
+        },
+        {
+          "name": "_contractHash",
+          "type": "ethers.BigNumber"
+        }
+      ]
+    },
+    {
+      "contract": "CardList",
+      "arg": [
+        {
+          "name": "_contractHash",
+          "type": "ethers.BigNumber"
+        }
+      ]
+    },
+    {
+      "contract": "PlayGame"
+    },
+    {
+      "contract": "PlayGameFactory",
+      "arg": [
+        {
+          "name": "_contractHash",
+          "type": "ethers.BigNumber"
+        }
+      ]
+    },
+    {
+      "contract": "PlayActionLib",
+      "arg": [
+        {
+          "name": "_contractHash",
+          "type": "ethers.BigNumber"
+        }
+      ]
+    },
+    {
+      "contract": "PlayBot",
+      "arg": [
+        {
+          "name": "_contractHash",
+          "type": "ethers.BigNumber"
+        }
+      ]
+    }
+  ]
+}
