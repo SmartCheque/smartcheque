@@ -2,7 +2,7 @@
   "outputPath": "compiled/",
   "outputCopyPath": "../ui/src/contract/solidity/compiled",
   "ContractGeneric": "../../../util/ContractGeneric",
-  "TransactionManager" : "../../../util/TransactionManager",
+  "TMWallet" : "../../../util/TMWallet",
   "file": [
     {
       "contract": "NFT",

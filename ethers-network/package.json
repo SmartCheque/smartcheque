@@ -4,23 +4,23 @@
   "private": true,
   "main": "build/index.js",
   "exports": {
-    "." : "build/index.js",
-    "./faucet" : "build/faucet/index.js",
-    "./network" : "build/network/index.js",
-    "./wallet" : "build/wallet/index.js",
-    "./storage" : "build/storage/index.js",
-    "./transaction" : "build/transaction/index.js",
-    "./util" : "build/util/index.js"
+    "." : "./build/index.js",
+    "./faucet" : "./build/faucet/index.js",
+    "./network" : "./build/network/index.js",
+    "./wallet" : "./build/wallet/index.js",
+    "./storage" : "./build/storage/index.js",
+    "./transaction" : "./build/transaction/index.js",
+    "./util" : "./build/util/index.js"
   },
   "typings": "build/index.d.ts",
   "typesVersions": {
     "*": {
-      "faucet": ["build/faucet/index.d.ts"],
-      "network": ["build/network/index.d.ts"],
-      "wallet" : ["build/wallet/index.d.ts"],
-      "storage" : ["build/storage/index.d.ts"],
-      "transaction" : ["build/transaction/index.d.ts"],
-      "util" : ["build/util/index.d.ts"]
+      "faucet": ["./build/faucet/index.d.ts"],
+      "network": ["./build/network/index.d.ts"],
+      "wallet" : ["./build/wallet/index.d.ts"],
+      "storage" : ["./build/storage/index.d.ts"],
+      "transaction" : ["./build/transaction/index.d.ts"],
+      "util" : ["./build/util/index.d.ts"]
     }
   },
   "dependencies": {

@@ -4,20 +4,23 @@ import BalanceWidget from '../wallet/BalanceWidget'
 
 import { useAppSelector } from '../../hooks'
 
-const RequireFaucet = () => {
+import { NetworkType } from 'ethers-network/network'
+
+const RequireFaucet = (props : {
+  network : NetworkType
+}) => {
 
   const wallet = useAppSelector((state) => state.walletSlice.wallet)
-  const network = useAppSelector((state) => state.walletSlice.network)
 
-  console.log(network, network?.warningBalance, wallet.balance)
+  const balanceObj = wallet.balance.filter(_balance => _balance.chainId === props.network.chainId)[0]
 
-  if (!network) {
-    return (
-      <></>
-    )
+  if (!balanceObj){
+    return (<></>)
   }
 
-  if ((!network.warningBalance ||  (wallet.balance && wallet.balance >= network.warningBalance))) {
+  const balance = balanceObj.balance
+
+  if ((!props.network.warningBalance ||  (balance && balance >= props.network.warningBalance))) {
     return (
       <></>
     )
@@ -30,19 +33,19 @@ const RequireFaucet = () => {
     }
     {
       !!wallet.balance &&
-      <p>You have <BalanceWidget/></p>
+      <p>You have <BalanceWidget network={props.network}/></p>
     }
     { wallet.address &&
       <>
       <p>Get more Test token with faucet</p>
-      <p><Faucet address={wallet.address}/></p>
+      <p><Faucet network={props.network} address={wallet.address}/></p>
       </>
     }
-    { network.faucet &&
+    { props.network.faucet &&
       <>
 
-      <p>Get more Test token with {network.name} faucet at:</p>
-      <p><a href={network.faucet} target="_blank" rel="noreferrer">{network.faucet}</a></p>
+      <p>Get more Test token with {props.network.name} faucet at:</p>
+      <p><a href={props.network.faucet} target="_blank" rel="noreferrer">{props.network.faucet}</a></p>
       </>
     }
     </DivNice>

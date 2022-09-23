@@ -1,6 +1,6 @@
 const hostConfig = {
-  port: 8988,
-  origin: "http://localhost:3020",
+  port: 8987,
+  origin: "http://localhost:3040",
 }
 
 export default hostConfig

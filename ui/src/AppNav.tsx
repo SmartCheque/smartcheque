@@ -15,7 +15,6 @@ const AppNav = (props: {
 }) => {
 
   const step = useAppSelector((state) => state.contractSlice.step)
-  const network = useAppSelector((state) => state.walletSlice.network)
   const wallet = useAppSelector((state) => state.walletSlice.wallet)
   const displayAdmin = useAppSelector((state) => state.configSlice.displayAdmin)
 
@@ -28,7 +27,7 @@ const AppNav = (props: {
       expand="lg"
       >
     <Container fluid>
-      <Navbar.Brand onClick={() => props.setSection('wallet')}>NFTEverywhere {displayAdmin && network?.name && <> on {network?.name}</>}</Navbar.Brand>
+      <Navbar.Brand onClick={() => props.setSection('wallet')}>NFTEverywhere</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
@@ -40,7 +39,6 @@ const AppNav = (props: {
       </Navbar.Collapse>
       <Navbar.Brand>
         <WalletWidget address={wallet.address} error={getStep(StepId.Wallet, step).error} />
-        <BalanceWidget />
       </Navbar.Brand>
       <Navbar.Brand>
       </Navbar.Brand>

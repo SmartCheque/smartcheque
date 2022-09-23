@@ -1,12 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import type { WalletInfo } from 'ethers-network/wallet'
 import type { WalletType } from 'ethers-network/wallet'
-import type { NetworkType } from 'ethers-network/network'
 
 // Define a type for the slice state
 interface UserState {
   wallet: WalletInfo,
-  network: NetworkType | undefined,
   password: {
     password: string | undefined,
     passwordCheck: string | undefined
@@ -16,8 +14,7 @@ interface UserState {
 
 // Define the initial state using that type
 const initialState: UserState = {
-  wallet: {},
-  network: undefined,
+  wallet: { balance: [] },
   password: {
     password: undefined,
     passwordCheck: undefined
@@ -45,17 +42,19 @@ export const walletSlice = createSlice({
       else
         state.walletList = []
     },
-    setNetwork: (state, action: PayloadAction<NetworkType | undefined>) => {
-      state.network = action.payload
-    },
     setBalance: (state, action: PayloadAction<{ address: string, chainId: number, balance: number | undefined }>) => {
       if (
-        state.wallet.address === action.payload.address &&
-        state.network &&
-        state.network.chainId &&
-        state.network.chainId === action.payload.chainId
+        state.wallet.address === action.payload.address
       ) {
-        state.wallet.balance = action.payload.balance
+        const walletBalance = state.wallet.balance.filter(_balance => _balance.chainId === action.payload.chainId)[0]
+        if (walletBalance) {
+          walletBalance.balance = action.payload.balance
+        } else {
+          state.wallet.balance.push({
+            balance: action.payload.balance,
+            chainId: action.payload.chainId,
+          })
+        }
       } else {
         console.error("Wrong balance update ", action.payload)
       }
@@ -64,14 +63,11 @@ export const walletSlice = createSlice({
       state.password.password = undefined
     },
     clearWallet: (state) => {
-      state.wallet = {}
+      state.wallet = { balance: [] }
     },
     clearWalletList: (state) => {
       state.walletList = []
     },
-    clearNetwork: (state) => {
-      state.network = undefined
-    }
   },
 })
 
@@ -79,12 +75,10 @@ export const {
   setBalance,
   setWallet,
   setWalletList,
-  setNetwork,
   setPassword,
   setPasswordCheck,
   clearWallet,
   clearWalletList,
-  clearNetwork,
   clearPassword,
 } = walletSlice.actions
 

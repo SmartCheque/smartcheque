@@ -16,7 +16,6 @@ export interface TransactionInfo {
   contractAddress?: string
   functionName?: string
   args: any
-
 }
 
 export interface TransactionGasInfo {
@@ -93,19 +92,17 @@ export class TransactionManager {
     this.balanceInterval = undefined
   }
 
-  refreshBalance(interval: number, dispatch: any, updateBalance: (
-    dispatch: any,
+  refreshBalance(interval: number, updateBalance: (
     balance: BigNumber,
     address: string,
     chainId: number,
-  ) => Promise<number>) {
+  ) => void) {
     this.clearRefreshBalance()
     this.balanceInterval = setInterval(async () => {
-      await updateBalance(
-        dispatch,
+      updateBalance(
         await this.getBalance(),
         await this.getAddress(),
-        await this.getChainId()
+        await this.getChainId(),
       )
     }, interval)
     console.log(this)

@@ -1,5 +1,6 @@
 import AddressWidget from '../AddressWidget'
 import BalanceWidget from './BalanceWidget'
+import {getNetworkList} from 'ethers-network/network'
 
 import { useAppSelector } from '../../hooks'
 
@@ -11,8 +12,10 @@ const WalletInfoWidget = () => {
     <>
     { !!wallet.address &&
       <>
-      <p>Wallet address : <AddressWidget address={wallet.address}/><br/>
-      Balance : <BalanceWidget/></p>
+      <p>Wallet address : <AddressWidget address={wallet.address}/></p>
+      { getNetworkList().map(network => {
+        return <p key={network.chainId}>{network.name} balance: <BalanceWidget network={network}/></p>
+      })}
       </>
     }
 

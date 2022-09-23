@@ -5,7 +5,7 @@ import AppNav from './AppNav'
 
 import Container from 'react-bootstrap/Container';
 
-import { TransactionManager } from 'ethers-network/transaction'
+import { TMWallet } from 'ethers-network/transaction'
 import WalletConnection from './section/WalletConnection'
 import OptionConnection from './section/OptionConnection'
 import AdminSection from './section/AdminSection'
@@ -23,15 +23,15 @@ import {
 function App() {
 
   const [section, setSection] = useState<string | undefined>()
-  const [transactionManager, setTransactionManager] = useState<TransactionManager>()
+  const [tMWallet, setTMWallet] = useState<TMWallet>()
   const [displayConfig, setDisplayConfig] = useState<boolean>(false)
 
-  const updateTransactionManager = (_transactionManager : TransactionManager) => {
-    console.log("update transaction Manager", transactionManager)
-    if (transactionManager){
-      transactionManager.release()
+  const updateTMWallet = (_tMWallet : TMWallet) => {
+    console.log("update transaction Manager", tMWallet)
+    if (tMWallet){
+      tMWallet.release()
     }
-    setTransactionManager(_transactionManager)
+    setTMWallet(_tMWallet)
   }
 
   const step = useAppSelector((state) => state.contractSlice.step)
@@ -42,8 +42,8 @@ function App() {
     <div className="App" style={isWallet ? {top : '0px'} : {}}>
       <Container fluid>
         <WalletLoader
-          transactionManager={transactionManager}
-          setTransactionManager={updateTransactionManager}
+          tMWallet={tMWallet}
+          setTMWallet={updateTMWallet}
         />
         {!isWallet && <AppNav
           section={section}
@@ -58,13 +58,12 @@ function App() {
           }
           { !displayConfig &&
             <WalletConnection
-              transactionManager={transactionManager}
+              tMWallet={tMWallet}
               setSection={setSection}
               setDisplayConfig={setDisplayConfig}
             />
           }
           </>
-
 
         }
 

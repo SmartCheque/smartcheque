@@ -2,7 +2,7 @@ type WalletInfo = {
   type?: string
   name?: string
   address?: string
-  balance?: number
+  balance: { balance: number | undefined, chainId: number }[]
 }
 
 export type { WalletInfo }

@@ -1,10 +1,7 @@
 import { useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import SpaceWidget from '../component/SpaceWidget'
-import NetworkInfoWidget from '../component/wallet/NetworkInfoWidget'
 import WalletInfoWidget from '../component/wallet/WalletInfoWidget'
-import NetworkSelectWidget from '../component/wallet/NetworkSelectWidget'
-import NetworkSwitchWidget from '../component/wallet/NetworkSwitchWidget'
 import WalletSelectWidget from '../component/wallet/WalletSelectWidget'
 import Logo from '../component/broswerWallet/Logo'
 import Introduction from '../component/broswerWallet/Introduction'
@@ -14,9 +11,11 @@ import BroswerWalletButton from '../component/broswerWallet/BroswerWalletButton'
 import MetamaskButton from '../component/broswerWallet/MetamaskButton'
 import WalletAddWidget from '../component/wallet/WalletAddWidget'
 
-import { TransactionManager } from 'ethers-network/transaction'
+import { TMWallet } from 'ethers-network/transaction'
 import DivNice from '../component/DivNice'
 import RequireFaucet from '../component/backend/RequireFaucet'
+
+import { getNetworkList } from 'ethers-network/network'
 
 import WalletPassword from '../component/wallet/WalletPassword'
 import StepMessageNiceWidget from '../component/StepMessageNiceWidget'
@@ -42,7 +41,7 @@ import {
 import { useAppSelector, useAppDispatch } from '../hooks'
 
 const WalletConnection = (props: {
-  transactionManager: TransactionManager | undefined
+  tMWallet: TMWallet | undefined
   setSection: (section: string) => void
   setDisplayConfig: (arg : boolean) => void
 }) => {
@@ -51,14 +50,18 @@ const WalletConnection = (props: {
 
   const step = useAppSelector((state) => state.contractSlice.step)
   const wallet = useAppSelector((state) => state.walletSlice.wallet)
-  const network = useAppSelector((state) => state.walletSlice.network)
   const displayAdmin = useAppSelector((state) => state.configSlice.displayAdmin)
 
   const [ displayOption, setDisplayOption ] = useState<boolean>(false)
 
   const setWalletType = (type?: string) => {
     walletStorageSetType(type)
-    dispatch(updateStep({ id: StepId.Wallet, step: Step.Init }))
+    if (type){
+      dispatch(updateStep({ id: StepId.Wallet, step: Step.Init }))
+    } else {
+      dispatch(updateStep({ id: StepId.Wallet, step: Step.NotSet }))
+    }
+
   }
 
   const renderDisconnect = () => {
@@ -172,14 +175,6 @@ const WalletConnection = (props: {
           }
           return (
             <>
-            <DivNice title='Select network'>
-                <NetworkSelectWidget />
-                {!!network && displayAdmin &&
-                  <NetworkInfoWidget
-                    network={network}
-                  />
-                }
-            </DivNice>
             <DivNice title='Select wallet'>
             <WalletSelectWidget/>
             </DivNice>
@@ -188,11 +183,13 @@ const WalletConnection = (props: {
             <WalletInfoWidget/>
             </DivNice>
 
-            <RequireFaucet/>
+            {getNetworkList().map(network => {
+              <RequireFaucet network={network}/>
+            })}
 
             {isStep(StepId.Wallet, Step.Ok, step) &&
               <DivNice>
-              <Button onClick={() => props.setSection('game')}>Start game</Button>
+              <Button onClick={() => props.setSection('user')}>Ok</Button>
               </DivNice>
             }
             <DivNice>
@@ -206,17 +203,9 @@ const WalletConnection = (props: {
         if (isStep(StepId.Wallet, Step.Error, step)) {
           return (
             <>
-            <DivNice title='Select network'>
-                <NetworkSelectWidget />
-                {!!network && displayAdmin &&
-                  <NetworkInfoWidget
-                    network={network}
-                  />
-                }
-            </DivNice>
             <DivNice title='Network Error'>
                 <p>Is the network connected?</p>
-                <p>Cannot reach {network?.url}</p>
+                <p>Cannot reach</p>
                 <p>Click ok to re-test</p>
                 <StepMessageNiceWidget
                   title='Wallet'
@@ -234,82 +223,6 @@ const WalletConnection = (props: {
         return (
           <DivNice title='Error wallet step'>
             {'Unknow step ' + Step[getStep(StepId.Wallet, step).step]}
-          </DivNice>
-        )
-      case 'Metamask':
-      case 'WalletConnect':
-      if (isStep(StepId.Wallet, Step.Init, step)) {
-        return (
-          <DivNice title='Metamask'>
-              <p>Loading...</p>
-          </DivNice>
-        )
-      }
-        if (isStep(StepId.Wallet, Step.NoAddress, step)) {
-          return (
-            <DivNice title='Metamask'>
-                <Button size='sm' variant="warning" onClick={() => {
-                  window.ethereum.enable().then()
-                }}>Connect wallet</Button>
-                {renderHome()}
-            </DivNice>
-          )
-        }
-        if (isStep(StepId.Wallet, Step.Ok, step)) {
-          return (
-            <>
-            <DivNice title='Network'>
-              <NetworkSwitchWidget/>
-              { network &&
-                <NetworkInfoWidget
-                  network={network}
-                />
-              }
-            </DivNice>
-            <DivNice title='Metamask Wallet'>
-              { wallet &&
-                <WalletInfoWidget/>
-              }
-              </DivNice>
-              <RequireFaucet/>
-              {isStep(StepId.Wallet, Step.Ok, step) &&
-                <DivNice>
-                <Button onClick={() => props.setSection('game')}>Start game</Button>
-                </DivNice>
-              }
-              <DivNice>
-                {renderHome()}
-              </DivNice>
-              </>
-          )
-        }
-        if (isStep(StepId.Wallet, Step.Error, step)) {
-          return (
-            <>
-              <DivNice title='Metamask Error'>
-                <p>Is your metamask connected?</p>
-                <Button size='sm' variant="warning" onClick={() => {
-                  window.ethereum.enable().then()
-                }}>Connect metamask</Button>
-                <p>When connected, click ok to re-test</p>
-                <StepMessageNiceWidget
-                  title='Wallet'
-                  step={getStep(StepId.Wallet, step)}
-                  resetStep={() => { dispatch(clearError(StepId.Wallet)) }}
-                /
-                >
-
-              </DivNice>
-              <DivNice>
-              {renderHome()}
-              </DivNice>
-            </>
-          )
-        }
-        return (
-          <DivNice title='Metamask Error wallet step'>
-            {'Unknow step ' + Step[getStep(StepId.Wallet, step).step]}
-            {renderHome()}
           </DivNice>
         )
       default:
