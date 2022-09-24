@@ -42,6 +42,7 @@ const appInit = () => {
   app.use(express.static(publicPath))
 
   // routes
+  require('../routes/contractRoutes').default(app)
   require('../routes/authRoutes').default(app)
   require('../routes/userRoutes').default(app)
   require('../routes/fileRoutes').default(app)

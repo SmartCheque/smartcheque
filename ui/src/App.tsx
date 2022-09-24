@@ -18,7 +18,7 @@ import { useAppSelector } from './hooks'
 import {
   StepId,
   isOk,
-} from './reducer/contractSlice'
+} from './reducer/stateSlice'
 
 function App() {
 
@@ -34,17 +34,17 @@ function App() {
     setTMWallet(_tMWallet)
   }
 
-  const step = useAppSelector((state) => state.contractSlice.step)
+  const step = useAppSelector((state) => state.stateSlice.step)
 
   const isWallet = (section === 'wallet' || !isOk(StepId.Wallet, step))
 
   return (
     <div className="App" style={isWallet ? {top : '0px'} : {}}>
       <Container fluid>
-        <WalletLoader
+        { <WalletLoader
           tMWallet={tMWallet}
           setTMWallet={updateTMWallet}
-        />
+        />}
         {!isWallet && <AppNav
           section={section}
           setSection={setSection}

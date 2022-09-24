@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button'
 import {
   StepType,
   Step
-} from '../reducer/contractSlice'
+} from '../reducer/stateSlice'
 
 //https://flatuicolors.com/palette/defo
 const colorCarrot="#e67e22"

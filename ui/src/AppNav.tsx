@@ -7,14 +7,14 @@ import BalanceWidget from './component/wallet/BalanceWidget'
 
 import { useAppSelector } from './hooks'
 
-import { getStep, StepId } from './reducer/contractSlice'
+import { getStep, StepId } from './reducer/stateSlice'
 
 const AppNav = (props: {
   section: string | undefined,
   setSection: (section : string) => void,
 }) => {
 
-  const step = useAppSelector((state) => state.contractSlice.step)
+  const step = useAppSelector((state) => state.stateSlice.step)
   const wallet = useAppSelector((state) => state.walletSlice.wallet)
   const displayAdmin = useAppSelector((state) => state.configSlice.displayAdmin)
 
@@ -33,6 +33,7 @@ const AppNav = (props: {
         <Nav className="mr-auto">
           <Nav.Link onClick={() => props.setSection('wallet')}>Wallet</Nav.Link>
           <Nav.Link eventKey="1" onClick={() => props.setSection('user')}>User</Nav.Link>
+          <Nav.Link eventKey="1" onClick={() => props.setSection('contractAdmin')}>contractAdmin</Nav.Link>
         </Nav>
         <Nav className="mr-auto">
         </Nav>

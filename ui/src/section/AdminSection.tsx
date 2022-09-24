@@ -1,5 +1,5 @@
 import UserSection from './UserSection'
-
+import ContractAdminSection from './ContractAdminSection'
 
 const AdminSection = (props: {
   section : string | undefined,
@@ -9,6 +9,8 @@ const AdminSection = (props: {
     switch (props.section){
       case 'user':
       return <UserSection/>
+      case 'contractAdmin':
+      return <ContractAdminSection/>
       default :
       return (<p>"Section not found " + {props.section}</p>)
     }

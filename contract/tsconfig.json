@@ -1,20 +1,35 @@
 {
-    "compilerOptions": {
-        "outDir": "./build",
-        "resolveJsonModule": true,
-        "experimentalDecorators": true,
-        "alwaysStrict": true,
-        "allowJs": true,
-        "noImplicitAny": false,
-        "forceConsistentCasingInFileNames": true,
-        "noUnusedLocals": false,
-        "noUnusedParameters": true,
-        "noImplicitReturns": true,
-        "noFallthroughCasesInSwitch": true,
-        "sourceMap": true,
-        "strict": true
-    },
-    "include": [
-        "./src"
-    ]
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Node 16",
+  "compileOnSave": true,
+  "compilerOptions": {
+    "lib": [
+      "es2020",
+      "dom"
+    ],
+    "module": "commonjs",
+    "target": "es6",
+    // output .d.ts declaration files for consumers
+    "declaration": true,
+    // output .js.map sourcemap files for consumers
+    "sourceMap": true,
+    // match output dir to input dir. e.g. dist/index instead of dist/src/index
+    "rootDir": "./src",
+    "strict": true,
+    "outDir": "build",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "noFallthroughCasesInSwitch": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": false
+  },
+  "include": [
+    "src"
+  ]
 }

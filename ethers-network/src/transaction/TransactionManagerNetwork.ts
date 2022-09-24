@@ -61,14 +61,19 @@ export class TMWallet {
   async refreshBalance(
     chainId: number,
   ) {
-    const tmnetwork = this.getTMNetwork(chainId)
-    if (tmnetwork) {
-      this.updateBalance(
-        await tmnetwork.transactionManager.getBalance(),
-        await tmnetwork.transactionManager.getAddress(),
-        await tmnetwork.transactionManager.getChainId(),
-      )
+    try {
+      const tmnetwork = this.getTMNetwork(chainId)
+      if (tmnetwork) {
+        this.updateBalance(
+          await tmnetwork.transactionManager.getBalance(),
+          await tmnetwork.transactionManager.getAddress(),
+          await tmnetwork.transactionManager.getChainId(),
+        )
+      }
+    } catch (error) {
+
     }
+
   }
 
   updateBalance(

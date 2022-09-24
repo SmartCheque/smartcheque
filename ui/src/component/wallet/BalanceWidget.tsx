@@ -19,7 +19,6 @@ const BalanceWidget = (props : {
     return <span style={{paddingLeft : '.2em', color : 'orangered'}}>0 {props.network.tokenName}</span>
   }
 
-  
   if (props.network.warningBalance && balance < props.network.warningBalance){
     return <span style={{paddingLeft : '.2em', color : 'orange'}}>{Math.floor(balance * 100) / 100} {props.network.tokenName}</span>
   }

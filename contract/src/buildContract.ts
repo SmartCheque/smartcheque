@@ -220,7 +220,7 @@ const compileInput = (contractConfig: any, outputPath: string, fileTs: FileTs) =
 const buildContractConfig = (contractConfig: { contract: string, input?: any }) => {
   const config = {
     language: 'Solidity',
-    sources: {},
+    sources: {} as { [k: string]: any },
     settings: {
       "optimizer": {
         "enabled": true,
@@ -228,7 +228,7 @@ const buildContractConfig = (contractConfig: { contract: string, input?: any }) 
       },
       "evmVersion": "london",
       outputSelection: {
-        '*': {}
+        '*': {} as { [k: string]: any },
       }
     }
   }

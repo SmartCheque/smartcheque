@@ -6,6 +6,7 @@ import { initRole } from './roleModel'
 import { initUser } from './userModel'
 import { initFile } from './fileModel'
 import { initWallet } from './walletModel'
+import { initContract } from './contractModel'
 
 const sequelize = new Sequelize(
   dbConfig.DB,
@@ -32,6 +33,7 @@ const db = {
   user: initUser(sequelize),
   file: initFile(sequelize),
   wallet: initWallet(sequelize),
+  contract: initContract(sequelize),
   ROLES: ["user", "admin", "moderator"],
 }
 

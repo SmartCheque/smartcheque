@@ -9,7 +9,7 @@ import {
   updateStep,
   Step,
   StepId,
-} from '../../reducer/contractSlice'
+} from '../../reducer/stateSlice'
 
 const WalletDelete = () => {
 

@@ -9,7 +9,7 @@ import {
   updateStep,
   setError,
   resetAllStep,
-} from '../reducer/contractSlice'
+} from '../reducer/stateSlice'
 
 import {
   walletListLoadAddress,
@@ -108,7 +108,7 @@ const WalletLoader = (props: {
   setTMWallet: (tMWallet: TMWallet) => void
 }) => {
 
-  const step = useAppSelector((state) => state.contractSlice.step)
+  const step = useAppSelector((state) => state.stateSlice.step)
   const password = useAppSelector((state) => state.walletSlice.password)
 
   const dispatch = useAppDispatch()

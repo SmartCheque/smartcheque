@@ -4,23 +4,39 @@
   "private": true,
   "main": "build/index.js",
   "exports": {
-    "." : "./build/index.js",
-    "./faucet" : "./build/faucet/index.js",
-    "./network" : "./build/network/index.js",
-    "./wallet" : "./build/wallet/index.js",
-    "./storage" : "./build/storage/index.js",
-    "./transaction" : "./build/transaction/index.js",
-    "./util" : "./build/util/index.js"
+    ".": "./build/index.js",
+    "./faucet": "./build/faucet/index.js",
+    "./contract": "./build/contract/index.js",
+    "./network": "./build/network/index.js",
+    "./wallet": "./build/wallet/index.js",
+    "./storage": "./build/storage/index.js",
+    "./transaction": "./build/transaction/index.js",
+    "./util": "./build/util/index.js"
   },
   "typings": "build/index.d.ts",
   "typesVersions": {
     "*": {
-      "faucet": ["./build/faucet/index.d.ts"],
-      "network": ["./build/network/index.d.ts"],
-      "wallet" : ["./build/wallet/index.d.ts"],
-      "storage" : ["./build/storage/index.d.ts"],
-      "transaction" : ["./build/transaction/index.d.ts"],
-      "util" : ["./build/util/index.d.ts"]
+      "faucet": [
+        "./build/faucet/index.d.ts"
+      ],
+      "contract": [
+        "./build/contract/index.d.ts"
+      ],
+      "network": [
+        "./build/network/index.d.ts"
+      ],
+      "wallet": [
+        "./build/wallet/index.d.ts"
+      ],
+      "storage": [
+        "./build/storage/index.d.ts"
+      ],
+      "transaction": [
+        "./build/transaction/index.d.ts"
+      ],
+      "util": [
+        "./build/util/index.d.ts"
+      ]
     }
   },
   "dependencies": {
@@ -31,11 +47,26 @@
     "build": "tsc",
     "ganache": "npx ganache --hardfork london -a 10 -m='candy maple cake sugar pudding cream honey rich smooth crumble sweet treat' --gasLimit=8000000 --gasPrice=100000000000 --port 8545 -i 1234 --networkId 1234",
     "ganache-slow": "npx ganache -a 10 -b 1 -m='candy maple cake sugar pudding cream honey rich smooth crumble sweet treat' --gasLimit=8000000 --port 8545 -i 1234 --networkId 1234",
-    "ganache-test": "curl -X POST --data '{\"jsonrpc\":\"2.0\",\"method\":\"web3_clientVersion\",\"params\":[],\"id\":67}' localhost:8545"
+    "ganache-test": "curl -X POST --data '{\"jsonrpc\":\"2.0\",\"method\":\"web3_clientVersion\",\"params\":[],\"id\":67}' localhost:8545",
+    "test": "jest"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.19.1",
+    "@babel/preset-typescript": "^7.18.6",
+    "@ethersproject/abstract-provider": "^5.7.0",
     "@types/crypto-js": "^4.1.1",
+    "@types/jest": "^29.0.3",
     "@types/node": "^18.7.15",
+    "jest": "^29.0.3",
     "typescript": "^4.8.3"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "/build/"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   }
 }

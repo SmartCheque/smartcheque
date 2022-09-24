@@ -32,7 +32,7 @@ import {
   updateStep,
   getStep,
   clearError,
-} from '../reducer/contractSlice'
+} from '../reducer/stateSlice'
 
 import {
   clearPassword
@@ -48,7 +48,7 @@ const WalletConnection = (props: {
 
   const dispatch = useAppDispatch()
 
-  const step = useAppSelector((state) => state.contractSlice.step)
+  const step = useAppSelector((state) => state.stateSlice.step)
   const wallet = useAppSelector((state) => state.walletSlice.wallet)
   const displayAdmin = useAppSelector((state) => state.configSlice.displayAdmin)
 

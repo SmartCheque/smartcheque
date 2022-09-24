@@ -44,21 +44,21 @@ export enum Step {
 }
 
 // Define a type for the slice state
-interface ContractState {
+interface StateState {
   step: StepType[]
   version: number
 }
 
 // Define the initial state using that type
-const initialState: ContractState = {
+const initialState: StateState = {
   step: [
     { id: StepId.Wallet, step: Step.Init, message: undefined, error: undefined },
   ],
   version: 0,
 }
 
-export const contractSlice = createSlice({
-  name: 'contract',
+export const stateSlice = createSlice({
+  name: 'state',
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
@@ -155,7 +155,7 @@ export const {
   setMessage,
   resetAllStep,
   resetAllSubStep,
-} = contractSlice.actions
+} = stateSlice.actions
 
 export const getStep = function(id: number, stepState: StepType[]) {
   return stepState.filter(_step => _step.id === id)[0]
@@ -173,4 +173,4 @@ export const isOk = function(id: number, stepState: StepType[]) {
   return getStep(id, stepState).step === Step.Ok
 }
 
-export default contractSlice.reducer
+export default stateSlice.reducer

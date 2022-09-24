@@ -9,6 +9,7 @@ import {
   addHooks,
   getProvider,
   getWalletList,
+  getWallet,
 } from './networkInfo'
 
 export {
@@ -20,6 +21,7 @@ export {
   addHooks,
   getProvider,
   getWalletList,
+  getWallet,
 }
 
 export { NetworkType }

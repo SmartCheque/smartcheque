@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button'
 import {
   StepType,
   Step
-} from '../reducer/contractSlice'
+} from '../reducer/stateSlice'
 
 
 const StepMessageWidget = (props : {
