@@ -33,17 +33,16 @@ const RequireFaucet = (props : {
     }
     {
       !!wallet.balance &&
-      <p>You have <BalanceWidget network={props.network}/></p>
+      <p>On {props.network.name} ({props.network.chainId}) you have <BalanceWidget network={props.network}/></p>
     }
     { wallet.address &&
       <>
-      <p>Get more Test token with faucet</p>
+      <p>Get up to {props.network.faucetAmount} Test token with faucet</p>
       <p><Faucet network={props.network} address={wallet.address}/></p>
       </>
     }
     { props.network.faucet &&
       <>
-
       <p>Get more Test token with {props.network.name} faucet at:</p>
       <p><a href={props.network.faucet} target="_blank" rel="noreferrer">{props.network.faucet}</a></p>
       </>

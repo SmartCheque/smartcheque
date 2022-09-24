@@ -18,7 +18,6 @@ const WalletInfoWidget = () => {
       })}
       </>
     }
-
     </>
   )
 }

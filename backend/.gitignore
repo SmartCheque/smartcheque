@@ -1,4 +1,4 @@
 /build
 /node_modules
 /key
-/config/*.ts
+/src/config/*.ts

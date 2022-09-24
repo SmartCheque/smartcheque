@@ -4,7 +4,9 @@
       "name" : "ganache",
       "url": "http://127.0.0.1:8545",
       "chainId": 1337,
-      "faucetAmount": 1
+      "tokenName": "TEST",
+      "faucetAmount": 1,
+      "warningBalance": 0.75
     },
     {
       "name" : "Emerald Testnet",
@@ -14,7 +16,8 @@
       "tokenName": "TEST",
       "timeBetweenRequest" : 10,
       "retry" : 2,
-      "faucetAmount": 1
+      "faucetAmount": 1,
+      "warningBalance": 0.75
     },
     {
       "name" : "Emerald",

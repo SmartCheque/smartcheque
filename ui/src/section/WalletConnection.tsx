@@ -184,7 +184,7 @@ const WalletConnection = (props: {
             </DivNice>
 
             {getNetworkList().map(network => {
-              <RequireFaucet network={network}/>
+              return (<RequireFaucet network={network} key={network.chainId}/>)
             })}
 
             {isStep(StepId.Wallet, Step.Ok, step) &&
