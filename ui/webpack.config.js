@@ -1,15 +1,18 @@
+const path = require('path');
+const webpack = require('webpack');
+
 allowedHosts = ["all"];
 module.exports = {
   resolve: {
     alias: {
       'react-dnd': path.resolve('../node_modules/react-dnd')
-    }
-  },
-  resolve.fallback: {
-    "util": require.resolve("util/"),
-    'stream': require.resolve('stream-browserify'),
-    'buffer': require.resolve('buffer/'),
-    'assert': require.resolve('assert/'),
+    },
+    fallback: {
+      "util": require.resolve("util/"),
+      'stream': require.resolve('stream-browserify'),
+      'buffer': require.resolve('buffer/'),
+      'assert': require.resolve('assert/'),
+    },
   },
   plugins: [
     new webpack.NormalModuleReplacementPlugin(/node:/, (resource) => {

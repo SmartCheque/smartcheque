@@ -1,0 +1,6 @@
+const nftPortConfig = {
+  apiKey: "my api key",
+  url: "https://api.nftport.xyz/v0/nfts",
+}
+
+export defaut nftPortConfig

@@ -1,5 +1,5 @@
 import ContractAdmin from '../component/backend/ContractAdmin'
-
+import Message from '../component/backend/Message'
 import { getNetworkList } from 'ethers-network/network'
 
 import { Row, Col} from 'react-bootstrap'
@@ -15,9 +15,12 @@ const ContractAdminSection = ()=> {
   }
 
   return (
+    <>
+    <Message/>
     <Row>
     {render()}
     </Row>
+    </>
   )
 
 }

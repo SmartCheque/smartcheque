@@ -4,7 +4,6 @@ import { network as networkList } from '../config/network.json'
 import { NetworkType } from './networkType'
 import { WalletType } from '../wallet/walletType'
 import { walletListLoad } from '../storage/walletStorage'
-import sapphire from '@oasisprotocol/sapphire-paratime'
 
 declare global {
   interface Window {
@@ -55,11 +54,16 @@ export const getWalletList = async (password: string): Promise<WalletType[] | un
 
 export const getProvider = (network: NetworkType, setError?: (error: string) => void): ethers.providers.Provider | undefined => {
   try {
+
     const provider = new ethers.providers.StaticJsonRpcProvider(network.url)
     provider.pollingInterval = 10000
-    if (network.chainId === 0x5aff) return sapphire.wrap(provider)
+    if (network.chainId === 0x5aff) {
+      const sapphire = require('@oasisprotocol/sapphire-paratime')
+      return sapphire.wrap(provider)
+    }
     return provider
   } catch (error: any) {
+    console.log(error)
     console.error('Provider not found for network : ', error)
     setError && setError("Error in Metamask : " + error.message)
   }
@@ -69,7 +73,12 @@ export const getWallet = (network: NetworkType, privateKeys: any): ethers.Wallet
   const provider = getProvider(network)
   if (provider) {
     const walletList = privateKeys.map((pk: string): ethers.Signer => {
-      return new ethers.Wallet(pk, provider)
+      const wallet = new ethers.Wallet(pk, provider)
+      if (network.chainId === 0x5aff) {
+        const sapphire = require('@oasisprotocol/sapphire-paratime')
+        return sapphire.wrap(wallet)
+      }
+      return wallet
     })
     return walletList[0]
   }
