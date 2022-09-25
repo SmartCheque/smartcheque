@@ -19,15 +19,69 @@ export const nfts = async (
   chainId: number,
 ) => {
   const url = new URL(nftPortConfig.url + '/nfts')
-  switch (chainId) {
-    case 1:
-
-  }
   const param = new URLSearchParams()
-  param.set('executionFeeAmount', 'auto')
+  param.set('chain', getChainName(chainId))
   url.search = param.toString()
   console.log(url.toString())
-  const response = await fetch(url.toString())
+  const response = await fetch(
+    url.toString(),
+    {
+      method: "GET",
+      headers: {
+        Authorization: nftPortConfig.apiKey
+      }
+    }
+  )
+  console.log(response)
+  return await response.json()
+}
+
+export const nftsOwner = async (
+  chainId: number,
+  address: string,
+  contractAddress?: string,
+) => {
+  const url = new URL(nftPortConfig.url + '/accounts/' + address)
+  const param = new URLSearchParams()
+  param.set('chain', getChainName(chainId))
+  param.set('account_address', address)
+  contractAddress && param.set('contract_address', contractAddress)
+  url.search = param.toString()
+  console.log(url.toString())
+  const response = await fetch(
+    url.toString(),
+    {
+      method: "GET",
+      headers: {
+        Authorization: nftPortConfig.apiKey
+      }
+    }
+  )
+  console.log(response)
+  return await response.json()
+}
+
+export const nftInfo = async (
+  chainId: number,
+  contractAddress: string,
+  tokenId: number,
+) => {
+  const url = new URL(nftPortConfig.url + '/nfts/' + contractAddress + '/' + tokenId)
+  const param = new URLSearchParams()
+  param.set('chain', getChainName(chainId))
+  param.set('contract_address', contractAddress)
+  param.set('token_id', tokenId.toString())
+  url.search = param.toString()
+  console.log(url.toString())
+  const response = await fetch(
+    url.toString(),
+    {
+      method: "GET",
+      headers: {
+        Authorization: nftPortConfig.apiKey
+      }
+    }
+  )
   console.log(response)
   return await response.json()
 }

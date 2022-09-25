@@ -15,7 +15,7 @@
       "chainId": 23295,
       "tokenName": "TEST",
       "timeBetweenRequest" : 10,
-      "retry" : 2
+      "retry" : 2,
     },
     {
       "name" : "* Emerald",
