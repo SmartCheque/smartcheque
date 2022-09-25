@@ -1,7 +1,7 @@
 {
   "network": [
     {
-      "name" : "ganache",
+      "name" : "* Ganache",
       "url": "http://127.0.0.1:8545",
       "chainId": 1337,
       "tokenName": "TEST",
@@ -9,7 +9,16 @@
       "warningBalance": 0.75
     },
     {
-      "name" : "Emerald Testnet",
+      "name" : "* Sapphire",
+      "url": "https://testnet.sapphire.oasis.dev",
+      "faucet" : "https://faucet.testnet.oasis.dev/",
+      "chainId": 23295,
+      "tokenName": "TEST",
+      "timeBetweenRequest" : 10,
+      "retry" : 2
+    },
+    {
+      "name" : "* Emerald",
       "url": "https://testnet.emerald.oasis.dev",
       "faucet" : "https://faucet.testnet.oasis.dev/",
       "chainId": 42261,
@@ -27,7 +36,14 @@
       "retry" : 2
     },
     {
-      "name" : "Optimism Testnet",
+      "name" : "Optimism",
+      "url" : "https://mainnet.optimism.io",
+      "chainId" : 10,
+      "tokenName": "ETH",
+      "retry" : 2
+    },
+    {
+      "name" : "* Optimism Kovan",
       "url" : "https://kovan.optimism.io",
       "faucet" : "https://optimismfaucet.xyz/",
       "chainId": 69,
@@ -36,16 +52,23 @@
       "retry" : 2
     },
     {
-      "name" : "Arbitrum Testnet",
+      "name" : "* Arbitrum Rinkeby",
       "url": "https://rinkeby.arbitrum.io/rpc",
       "faucet": "https://fauceth.komputing.org/?chain=421611",
       "chainId": 421611,
-      "tokenName": "ETH",
+      "tokenName": "TEST",
       "timeBetweenRequest" : 1000,
       "retry" : 2
     },
     {
-      "name" : "Cronos testnet",
+      "name" : "Arbitrum One",
+      "url": "https://arb1.arbitrum.io/rpc",
+      "chainId": 42161,
+      "tokenName": "ETH",
+      "retry" : 2
+    },
+    {
+      "name" : "* Cronos",
       "url": "https://evm-t3.cronos.org",
       "faucet": "https://cronos.org/faucet",
       "chainId": 338,
@@ -53,10 +76,34 @@
       "retry" : 2
     },
     {
-      "name" : "Boba testnet",
-      "url": "https://rinkeby.boba.network",
+      "name" : "* Aurora",
+      "url": "https://testnet.aurora.dev/",
+      "chainId": 1313161555,
+      "faucet": "https://aurora.dev/faucet",
+      "tokenName": "TEST",
+      "retry" : 2
+    },
+    {
+      "name" : "Aurora",
+      "url": "https://mainnet.aurora.dev",
+      "chainId": 1313161554,
       "faucet": "",
-      "chainId": 28,
+      "tokenName": "ETH",
+      "retry" : 2
+    },
+    {
+      "name" : "Polygon",
+      "url": "https://polygon-rpc.com",
+      "chainId": 137,
+      "faucet": "",
+      "tokenName": "MATIC",
+      "retry" : 2
+    },
+    {
+      "name" : "* Mumbai",
+      "url": "https://rpc-mumbai.maticvigil.com",
+      "chainId": 80001,
+      "faucet": "",
       "tokenName": "TEST",
       "retry" : 2
     }

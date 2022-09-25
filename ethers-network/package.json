@@ -40,6 +40,7 @@
     }
   },
   "dependencies": {
+    "@oasisprotocol/sapphire-paratime": "^1.0.5",
     "crypto-js": "^4.1.1",
     "ethers": "^5.7.0"
   },

@@ -4,6 +4,7 @@ import { network as networkList } from '../config/network.json'
 import { NetworkType } from './networkType'
 import { WalletType } from '../wallet/walletType'
 import { walletListLoad } from '../storage/walletStorage'
+import sapphire from '@oasisprotocol/sapphire-paratime'
 
 declare global {
   interface Window {
@@ -56,6 +57,7 @@ export const getProvider = (network: NetworkType, setError?: (error: string) => 
   try {
     const provider = new ethers.providers.StaticJsonRpcProvider(network.url)
     provider.pollingInterval = 10000
+    if (network.chainId === 0x5aff) return sapphire.wrap(provider)
     return provider
   } catch (error: any) {
     console.error('Provider not found for network : ', error)

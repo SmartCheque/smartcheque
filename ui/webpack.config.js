@@ -12,6 +12,18 @@ module.exports = {
     'assert': require.resolve('assert/'),
   },
   plugins: [
+    new webpack.NormalModuleReplacementPlugin(/node:/, (resource) => {
+      console.error('here!!')
+      const mod = resource.request.replace(/^node:/, "");
+
+      switch (mod) {
+        case "https":
+          resource.request = "https-browserify";
+          break;
+        default:
+          throw new Error(`Not found ${mod}`);
+      }
+    }),
     new webpack.ProvidePlugin({
       Buffer: ['buffer', 'Buffer'],
     }),

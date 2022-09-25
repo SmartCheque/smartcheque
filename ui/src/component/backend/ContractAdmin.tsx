@@ -1,19 +1,14 @@
 import { useEffect } from 'react'
 
 import { NetworkType } from 'ethers-network/network'
-
 import { getHashContractNFT } from 'contract/contract'
-
 import { useAppSelector, useAppDispatch } from '../../hooks'
-
 import { getContract, deployContract } from '../../reducer/backend/contractSlice'
 
 import BalanceWidget from '../wallet/BalanceWidget'
-
 import AddressWidget from '../AddressWidget'
 
 import DivFullNice from '../DivFullNice'
-
 import Button from 'react-bootstrap/Button'
 
 const ContractList = [ 'NFT' ]

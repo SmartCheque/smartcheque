@@ -19,10 +19,21 @@ const BalanceWidget = (props : {
     return <span style={{paddingLeft : '.2em', color : 'orangered'}}>0 {props.network.tokenName}</span>
   }
 
-  if (props.network.warningBalance && balance < props.network.warningBalance){
-    return <span style={{paddingLeft : '.2em', color : 'orange'}}>{Math.floor(balance * 100) / 100} {props.network.tokenName}</span>
+  let balanceNbr
+  if (balance > 100){
+    balanceNbr = Math.floor(balance)
+  } else if (balance > 1) {
+    balanceNbr = Math.floor(balance * 100) / 100
+  } else if (balance > 0.1) {
+    balanceNbr = Math.floor(balance * 1000) / 1000
+  } else {
+    balanceNbr = Math.floor(balance * 10000) / 10000
   }
-  return <span style={{paddingLeft : '.2em', color : 'lightgreen'}}>{Math.floor(balance * 100) / 100} {props.network.tokenName}</span>
+
+  if (props.network.warningBalance && balance < props.network.warningBalance){
+    return <span style={{paddingLeft : '.2em', color : 'orange'}}>{balanceNbr} {props.network.tokenName}</span>
+  }
+  return <span style={{paddingLeft : '.2em', color : 'lightgreen'}}>{balanceNbr} {props.network.tokenName}</span>
 }
 
 export default BalanceWidget
