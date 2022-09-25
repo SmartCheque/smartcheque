@@ -1,16 +1,10 @@
 import * as ethers from 'ethers'
 import { RequestHandler } from 'express'
 
-export const verifyNetwork: RequestHandler = (req, res, next) => {
-  if (!req.body.networkName) {
+export const verifyChainId: RequestHandler = (req, res, next) => {
+  if (!req.body.chainId || typeof req.body.chainId !== 'number') {
     return res.status(403).send({
-      message: "No networkName set"
-    })
-  }
-
-  if (!req.body.networkName.match(/^[0-9a-zA-Z ]+$/)) {
-    return res.status(403).send({
-      message: "No networkName or invalid : " + req.body.networkName
+      message: "No chainId set"
     })
   }
 

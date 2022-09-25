@@ -27,12 +27,12 @@ const initialState: FaucetState = {
   faucetAmount: undefined,
 };
 
-export const checkFaucet = axiosThunkData<{ address: string, networkName: string }>(
+export const checkFaucet = axiosThunkData<{ address: string, chainId: number }>(
   'wallet/checkFaucet',
   API_URL + "wallet/checkFaucet",
 )
 
-export const faucet = axiosThunk<{ address: string, networkName: string }>(
+export const faucet = axiosThunk<{ address: string, chainId: number }>(
   'wallet/fund',
   API_URL + "wallet/fund",
 )

@@ -3,6 +3,7 @@ import express from 'express'
 import {
   deployContract,
   getContract,
+  createNFT,
 } from '../controllers/contractController'
 
 import {
@@ -29,6 +30,12 @@ const contractRoute = function(app: express.Application) {
     "/api/contract/get",
     [verifyToken, isAdmin],
     getContract
+  );
+
+  app.post(
+    "/api/nft/create",
+    [verifyToken],
+    createNFT
   );
 };
 

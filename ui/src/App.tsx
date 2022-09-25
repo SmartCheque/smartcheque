@@ -45,7 +45,7 @@ function App() {
           tMWallet={tMWallet}
           setTMWallet={updateTMWallet}
         />}
-        {!isWallet && <AppNav
+        {<AppNav
           section={section}
           setSection={setSection}
         />}

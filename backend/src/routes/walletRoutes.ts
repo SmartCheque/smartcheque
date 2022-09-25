@@ -5,7 +5,7 @@ import {
 
 import {
   verifyAddress,
-  verifyNetwork,
+  verifyChainId,
 } from '../middleware/verifyWallet'
 
 import express from 'express'
@@ -21,13 +21,13 @@ const authRoute = function(app: express.Application) {
 
   app.post(
     "/api/wallet/fund",
-    [verifyAddress, verifyNetwork],
+    [verifyAddress, verifyChainId],
     fundWallet
   );
 
   app.post(
     "/api/wallet/checkFaucet",
-    [verifyAddress, verifyNetwork],
+    [verifyAddress, verifyChainId],
     checkFaucetController
   );
 };

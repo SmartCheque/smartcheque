@@ -1,4 +1,3 @@
-import { utils, constants } from 'ethers'
 import nftPortConfig from '../config/nftPortConfig'
 
 const getChainName = (chainId: number) => {
@@ -32,8 +31,8 @@ export const nfts = async (
       }
     }
   )
-  console.log(response)
-  return await response.json()
+
+  return (await response.json()).nfts
 }
 
 export const nftsOwner = async (
@@ -57,8 +56,14 @@ export const nftsOwner = async (
       }
     }
   )
-  console.log(response)
-  return await response.json()
+  const json = await response.json()
+  console.log(json)
+  if (!json.nft) {
+    if (json.error) {
+      throw new Error(json.error.message)
+    }
+  }
+  return json.nfts
 }
 
 export const nftInfo = async (
@@ -82,6 +87,49 @@ export const nftInfo = async (
       }
     }
   )
-  console.log(response)
-  return await response.json()
+  const json = await response.json()
+  console.log(json)
+  if (!json.nft) {
+    if (json.error) {
+      throw new Error(json.error.message)
+    }
+  }
+  return json.nft
+}
+
+export const nftMint = async (
+  chainId: number,
+  name: string,
+  description: string,
+  fileUrl: string,
+  address: string,
+) => {
+  const url = new URL(nftPortConfig.url + '/mints/easy/urls')
+  const data = {
+    chain: getChainName(chainId),
+    name,
+    description,
+    file_url: fileUrl,
+    mint_to_address: address,
+  }
+  console.log(url.toString())
+  const response = await fetch(
+    url.toString(),
+    {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: nftPortConfig.apiKey
+      }
+    }
+  )
+  const json = await response.json()
+  console.log(json)
+  if (!json.nft) {
+    if (json.error) {
+      throw new Error(json.error.message)
+    }
+  }
+  return json.nft
 }

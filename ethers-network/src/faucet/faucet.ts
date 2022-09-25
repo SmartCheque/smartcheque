@@ -1,7 +1,7 @@
 import * as ethers from 'ethers'
 
 import { NetworkType } from '../network/networkType'
-import { getWallet, getNetworkFromName } from '../network/networkInfo'
+import { getWallet, getNetworkFromChainId } from '../network/networkInfo'
 
 export const getFaucetAmount = async (network: NetworkType, wallet: ethers.Wallet, address: string) => {
   if (!network.faucetAmount || network.faucetAmount === 0) {
@@ -20,14 +20,16 @@ export const getFaucetAmount = async (network: NetworkType, wallet: ethers.Walle
   return network.faucetAmount - balanceInEth
 }
 
-export const checkFaucet = async (networkName: string, privateKeys: any, address: string) => {
-  const network = getNetworkFromName(networkName)
+export const checkFaucet = async (chainId: number, privateKeys: any, address: string) => {
+  const network = getNetworkFromChainId(chainId)
+  if (!network) throw new Error('Network error')
   const wallet = getWallet(network, privateKeys)
   return await getFaucetAmount(network, wallet, address)
 }
 
-export const faucet = async (address: string, networkName: string, privateKeys: any) => {
-  const network = getNetworkFromName(networkName)
+export const faucet = async (address: string, chainId: number, privateKeys: any) => {
+  const network = getNetworkFromChainId(chainId)
+  if (!network) throw new Error('Network error')
   const wallet = getWallet(network, privateKeys)
   const faucetAmount = await getFaucetAmount(network, wallet, address)
   console.log('Faucet ' + address + ' ' + faucetAmount)

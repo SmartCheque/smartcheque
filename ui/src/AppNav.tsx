@@ -3,7 +3,6 @@ import Nav from 'react-bootstrap/Nav';
 import Container from 'react-bootstrap/Container';
 
 import WalletWidget from './component/WalletWidget'
-import BalanceWidget from './component/wallet/BalanceWidget'
 
 import { useAppSelector } from './hooks'
 
@@ -16,7 +15,6 @@ const AppNav = (props: {
 
   const step = useAppSelector((state) => state.stateSlice.step)
   const wallet = useAppSelector((state) => state.walletSlice.wallet)
-  const displayAdmin = useAppSelector((state) => state.configSlice.displayAdmin)
 
   return (
     <Navbar
@@ -34,6 +32,7 @@ const AppNav = (props: {
           <Nav.Link onClick={() => props.setSection('wallet')}>Wallet</Nav.Link>
           <Nav.Link eventKey="1" onClick={() => props.setSection('user')}>User</Nav.Link>
           <Nav.Link eventKey="1" onClick={() => props.setSection('contractAdmin')}>contractAdmin</Nav.Link>
+          <Nav.Link eventKey="1" onClick={() => props.setSection('collection')}>NFTs</Nav.Link>
         </Nav>
         <Nav className="mr-auto">
         </Nav>

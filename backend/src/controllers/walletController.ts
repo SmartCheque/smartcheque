@@ -3,12 +3,13 @@ const Wallet = db.wallet
 import { RequestHandler } from 'express'
 import { faucet, checkFaucet } from 'ethers-network/faucet'
 import { Transaction } from 'sequelize'
+import { getPrivateKey } from '../utils/privateKey'
 
 
 const faucetWallet = async (req: any, t: Transaction, res: any) => {
   try {
-    const privateKeys = require("../../../key/" + req.body.networkName.replace(/ /g, "") + "PrivateKeys.json")
-    await faucet(req.body.address, req.body.networkName, privateKeys)
+    const privateKeys = getPrivateKey(req.body.chainId)
+    await faucet(req.body.address, req.body.chainId, privateKeys)
     console.log("faucet", req.ip, req.body.address)
     t.commit().then(() => {
       res.send({ message: "Wallet funded successfully!" })
@@ -22,8 +23,8 @@ const faucetWallet = async (req: any, t: Transaction, res: any) => {
 
 export const checkFaucetController: RequestHandler = async (req, res) => {
   try {
-    const privateKeys = require("../../../key/" + req.body.networkName.replace(/ /g, "") + "PrivateKeys.json")
-    const faucetAmount = await checkFaucet(req.body.networkName, privateKeys, req.body.address)
+    const privateKeys = getPrivateKey(req.body.chainId)
+    const faucetAmount = await checkFaucet(req.body.chainId, privateKeys, req.body.address)
     if (faucetAmount) {
       return res.send({ message: "Faucet ready", faucetAmount });
     }

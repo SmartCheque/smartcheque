@@ -1,6 +1,12 @@
 {
   "network": [
     {
+      "name" : "Ethereum",
+      "url" : "https://cloudflare-eth.com",
+      "chainId": 1,
+      "tokenName": "ETH",
+    },
+    {
       "name" : "* Ganache",
       "url": "http://127.0.0.1:8545",
       "chainId": 1337,

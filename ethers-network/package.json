@@ -11,7 +11,8 @@
     "./wallet": "./build/wallet/index.js",
     "./storage": "./build/storage/index.js",
     "./transaction": "./build/transaction/index.js",
-    "./util": "./build/util/index.js"
+    "./util": "./build/util/index.js",
+    "./service": "./build/service/index.js"
   },
   "typings": "build/index.d.ts",
   "typesVersions": {
@@ -36,6 +37,9 @@
       ],
       "util": [
         "./build/util/index.d.ts"
+      ],
+      "service": [
+        "./build/service/index.d.ts"
       ]
     }
   },

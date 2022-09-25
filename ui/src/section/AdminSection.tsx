@@ -1,5 +1,6 @@
 import UserSection from './UserSection'
 import ContractAdminSection from './ContractAdminSection'
+import CollectionSection from './CollectionSection'
 
 const AdminSection = (props: {
   section : string | undefined,
@@ -11,8 +12,10 @@ const AdminSection = (props: {
       return <UserSection/>
       case 'contractAdmin':
       return <ContractAdminSection/>
+      case 'collection':
+      return <CollectionSection/>
       default :
-      return (<p>"Section not found " + {props.section}</p>)
+      return (<p></p>)
     }
   }
 

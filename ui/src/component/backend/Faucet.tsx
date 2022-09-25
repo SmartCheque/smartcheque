@@ -20,7 +20,7 @@ const Faucet = (props : {
   const pending = useAppSelector((state) => state.faucetSlice.pending)
 
   useEffect(() =>{
-    dispatch(checkFaucet({address : props.address, networkName : props.network.name}))
+    dispatch(checkFaucet({address : props.address, chainId : props.network.chainId}))
   }, [props.network, props.address])
 
   if (pending) {
@@ -32,7 +32,7 @@ const Faucet = (props : {
   return (
     <Message>
     <Button onClick={() => {
-      dispatch(faucet({address : props.address, networkName : props.network.name}))
+      dispatch(faucet({address : props.address, chainId : props.network.chainId}))
     }}>Faucet</Button>
     </Message>
   )
