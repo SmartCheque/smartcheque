@@ -4,7 +4,7 @@
   "description": "",
   "main": "build/index.js",
   "scripts": {
-    "build": "tsc && node ./build/buildContract.js",
+    "build": "tsc && node ./build/buildContract.js && tsc",
     "build-tsc": "tsc",
     "clean-cache": "rm -f deployedAddresses/ganache.json || true",
     "deploy": "tsc && node ./build/deploy/deployContract.js",
