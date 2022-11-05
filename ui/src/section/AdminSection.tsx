@@ -3,7 +3,10 @@ import ContractAdminSection from './ContractAdminSection'
 //import CollectionSection from './CollectionSection'
 import ChequeSection from './ChequeSection'
 
+import { TMWallet } from 'ethers-network/transaction'
+
 const AdminSection = (props: {
+  tMWallet: TMWallet | undefined,
   section : string | undefined,
 })=> {
 

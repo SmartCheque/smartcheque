@@ -69,6 +69,7 @@ function App() {
 
         { !isWallet && (
           <AdminSection
+            tMWallet={tMWallet}
             section={section}
           />
         )}
