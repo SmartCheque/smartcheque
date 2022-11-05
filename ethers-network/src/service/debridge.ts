@@ -1,5 +1,5 @@
 import { utils, constants } from 'ethers'
-import debridgeConfig from '../config/debridgeConfig'
+import { debridgeConfig } from '../config/debridgeConfig'
 
 export const estimate = async (
   srcChainId: number,
