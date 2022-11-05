@@ -26,13 +26,14 @@
   "dependencies": {
     "@chainlink/contracts": "^0.3.0",
     "@ensdomains/ens-contracts": "^0.0.8",
-    "@openzeppelin/contracts": "^4.6.0",
+    "@openzeppelin/contracts": "^4.7.3",
     "@types/node": "^18.0.0",
     "ethers-network": "file:../ethers-network",
     "fs-extra": "^10.1.0"
   },
+  "main": "./build/contract/contractAutoFactory.js",
   "exports": {
-    ".": "./build/buildContract.js",
+    ".": "./build/contract/contractAutoFactory.js",
     "./contract": "./build/contract/contractAutoFactory.js"
   },
   "typings": "build/index.d.ts",
