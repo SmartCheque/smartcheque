@@ -45,18 +45,19 @@ contract BankList {
 
   ///////////////////////////////////// BankList ////////////////////////////////////////
   mapping(address => BankInfo) private bankListFromCertificate;
-  BankInfo[] private bankList;
+  address[] private bankAddressList;
   uint64 bankId = 0;
 
   function getCertificateList(uint8 minGrade) public view returns (BankCertificate[] memory){
     BankCertificate[] memory certificateList;
     uint64 j = 0;
     for (uint64 i = 0; i < bankId; i++){
-      if (bankList[i].grade > minGrade){
+      bankInfo = bankListFromCertificate[bankAddressList[i]]
+      if (bankInfo.grade > minGrade){
           certificateList[j] = BankCertificate(
-            bankList[i].bankContract.getName(),
-            bankList[i].bankContract.getCertificate(),
-            bankList[i].grade
+            bankInfo.bankContract.getName(),
+            bankInfo.bankContract.getCertificate(),
+            bankInfo.grade
           );
           j = j + 1;
       }
@@ -64,8 +65,8 @@ contract BankList {
     return certificateList;
   }
 
-  function getBankContract(address certificate) public view returns (IBank){
-    return bankListFromCertificate[certificate].bankContract;
+  function getBankContract(address _certificate) public view returns (IBank){
+    return bankListFromCertificate[_certificate].bankContract;
   }
 
   ///////////////////////////////////// Register ////////////////////////////////////////
@@ -77,6 +78,13 @@ contract BankList {
     bankList.push(bankInfo);
     bankListFromCertificate[bankInfo.bankContract.getCertificate()] = bankInfo;
     bankId = bankId + 1;
+  }
+
+
+  ////////////////////////////////////// Grade ////////////////////////////////////////
+
+  function updateGrade (address _certificate, uint8 _grade) public _isOwner {
+      bankListFromCertificate[_certificate].grade = _grade;
   }
 
 }
