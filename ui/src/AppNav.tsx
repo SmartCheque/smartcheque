@@ -32,7 +32,7 @@ const AppNav = (props: {
           <Nav.Link onClick={() => props.setSection('wallet')}>Wallet</Nav.Link>
           <Nav.Link eventKey="1" onClick={() => props.setSection('user')}>User</Nav.Link>
           <Nav.Link eventKey="1" onClick={() => props.setSection('contractAdmin')}>contractAdmin</Nav.Link>
-          <Nav.Link eventKey="1" onClick={() => props.setSection('collection')}>NFTs</Nav.Link>
+          <Nav.Link eventKey="1" onClick={() => props.setSection('smartCheque')}>SmartCheque</Nav.Link>
         </Nav>
         <Nav className="mr-auto">
         </Nav>

@@ -1,6 +1,7 @@
 import UserSection from './UserSection'
 import ContractAdminSection from './ContractAdminSection'
-import CollectionSection from './CollectionSection'
+//import CollectionSection from './CollectionSection'
+import ChequeSection from './ChequeSection'
 
 const AdminSection = (props: {
   section : string | undefined,
@@ -12,8 +13,8 @@ const AdminSection = (props: {
       return <UserSection/>
       case 'contractAdmin':
       return <ContractAdminSection/>
-      case 'collection':
-      return <CollectionSection/>
+      case 'smartCheque':
+      return <ChequeSection/>
       default :
       return (<p></p>)
     }
