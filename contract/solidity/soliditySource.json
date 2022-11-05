@@ -17,5 +17,18 @@
         }
       ]
     }
+    {
+      "contract": "BankList",
+      "arg": [
+        {
+          "name": "_owner",
+          "type": "string"
+        },
+        {
+          "name": "_contractHash",
+          "type": "ethers.BigNumber"
+        }
+      ]
+    }
   ]
 }
