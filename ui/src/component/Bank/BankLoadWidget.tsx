@@ -27,6 +27,7 @@ const BankLoadWidget = (props : {
   const dispatch = useAppDispatch()
 
   const wallet = useAppSelector((state) => state.walletSlice.wallet)
+  const allowance = useAppSelector((state) => state.contractSlice.allowance)
 
   const [bankInfo, setBankInfo] = useState< {
     network: NetworkType,
@@ -84,12 +85,17 @@ const BankLoadWidget = (props : {
     await load()
   }
 
-  const getAllowance = async () => {
-    const chainId = props.network.chainId
-    const contractAddress = props.bankContract.address
+  const chainId = props.network.chainId
+  const contractAddress = props.bankContract.address
+
+
+  const _getAllowance = async () => {
     const customer = wallet.address
-    
-    await load()
+    if (customer){
+      await dispatch(getAllowance({chainId : chainId, contractAddress :  contractAddress, customer : customer}))
+      await load()
+    }
+
   }
 
   return <DivFullNice>
@@ -100,9 +106,16 @@ const BankLoadWidget = (props : {
     my bank balance : {utils.formatEther(bankInfo.balance)}<br/>
     my bank stake : {utils.formatEther(bankInfo.stake)}<br/><br/>
     wallet balance <BalanceWidget network={bankInfo.network}/><br/><br/>
+    {allowance && allowance.chainId === chainId && allowance.contractAddress === contractAddress &&
+      <>
+      allowance certificate : {allowance.customerCertificate}<br/>
+      allowance time : {new Date(allowance.timestamp).toLocaleString()}<br/>
+      allowance : {utils.formatEther(allowance.allowance)}<br/>
+      </>
+    }<br/><br/>
     <Button onClick={() => addBalance(0.1)}>Add money</Button><br/><br/>
     <Button onClick={() => addStake(0.1)}>Add stake money</Button><br/><br/>
-    <Button onClick={() => getAllowance()}>Get Allowance</Button><br/><br/>
+    <Button onClick={() => _getAllowance()}>Get Allowance</Button><br/><br/>
   </DivFullNice>
 
 }

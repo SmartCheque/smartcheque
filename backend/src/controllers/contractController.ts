@@ -99,8 +99,8 @@ export const createBank: RequestHandler = async (req, res) => {
           Contract.create({
             chainId,
             hash: hash.toHexString(),
-            name: 'Bank' + contract.address,
-            address: contract.address,
+            name: 'Bank' + contractBank.address,
+            address: contractBank.address,
           })
           const fee = await contractBankList.registerFee()
           const tx = await contractBankList.registerBank(contractBank.address, { value: fee })
@@ -123,7 +123,7 @@ export const getAllowance: RequestHandler = async (req, res) => {
     Contract.findOne({
       where: {
         chainId: req.body.chainId,
-        hash: getHashContractBankList().toHexString(),
+        hash: getHashContractBank().toHexString(),
         name: 'Bank' + req.body.contractAddress,
       }
     }).then(async (contract) => {
@@ -136,7 +136,7 @@ export const getAllowance: RequestHandler = async (req, res) => {
           const stake = await contractBank.getCustomerStake(req.body.customer) as BigNumber
           const allowance = stake.div(2)
           const timestamp = new Date().getTime() + 60 * 60 * 24 * 1000
-          const message = req.body.chainId + '|' + req.body.customer + '| ' + allowance.toString + '|' + 'TEST' + '|' + timestamp
+          const message = req.body.chainId + '|' + req.body.customer + '| ' + allowance.toString() + '|' + 'TEST' + '|' + timestamp
           const signature = await wallet.signMessage(message)
           const customerCertificate = wallet.address + '|' + message + '|' + signature
           return res.send({

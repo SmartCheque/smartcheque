@@ -110,7 +110,6 @@
     "ganache-slow": "npx ganache -a 10 -b 1 -m='candy maple cake sugar pudding cream honey rich smooth crumble sweet treat' --gasLimit=8000000 --port 8545 -i 1234 --networkId 1234",
     "ganache-test": "curl -X POST --data '{\"jsonrpc\":\"2.0\",\"method\":\"web3_clientVersion\",\"params\":[],\"id\":67}' localhost:8545"
   },
-  "proxy": "http://localhost:3011",
   "eslintConfig": {
     "extends": [
       "react-app",

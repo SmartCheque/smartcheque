@@ -81,6 +81,12 @@ export const contractSlice = createSlice({
         customerCertificate: action.payload.customerCertificate,
       }
     })
+    builder.addCase(getAllowance.rejected, (state, action) => {
+      state.allowance = undefined
+    })
+    builder.addCase(getAllowance.pending, (state, action) => {
+      state.allowance = undefined
+    })
     builder.addCase(getContract.fulfilled, (state, action) => {
       const contract = filterContract(state, action)
       if (contract) {

@@ -81,6 +81,10 @@ contract Bank is IBank {
 
     //////////////////////////////// Stake /////////////////////////////////////
 
+    function getCustomerStake(address _customer) public view returns (uint256){
+      return customerList[_customer].stake;
+    }
+
     function getStake() public view returns (uint256){
       return customerList[msg.sender].stake;
     }
