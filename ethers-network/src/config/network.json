@@ -7,6 +7,54 @@
       "tokenName": "TEST",
       "faucetAmount": 1,
       "warningBalance": 0.75
+    },
+    {
+      "name" : "* Chiado",
+      "url": "https://rpc.chiadochain.net",
+      "chainId": 10200,
+      "tokenName": "TEST",
+      "faucet": "https://gnosisfaucet.com",
+    },
+    {
+      "name" : "Gnosis",
+      "url": "https://rpc.gnosischain.com/",
+      "chainId": 100,
+      "tokenName": "xDai",
+      "faucet": "https://gnosisfaucet.com",
+    },
+    {
+      "name" : "* Emerald",
+      "url": "https://testnet.emerald.oasis.dev",
+      "faucet" : "https://faucet.testnet.oasis.dev/",
+      "chainId": 42261,
+      "tokenName": "TEST",
+      "timeBetweenRequest" : 10,
+      "retry" : 2,
+      "faucetAmount": 1,
+      "warningBalance": 0.75
+    },
+    {
+      "name" : "Optimism",
+      "url" : "https://mainnet.optimism.io",
+      "chainId" : 10,
+      "tokenName": "ETH",
+      "retry" : 2
+    },
+    {
+      "name" : "* Optimism Kovan",
+      "url" : "https://kovan.optimism.io",
+      "faucet" : "https://optimismfaucet.xyz/",
+      "chainId": 69,
+      "tokenName": "TEST",
+      "timeBetweenRequest" : 10,
+      "retry" : 2
+    },{
+      "name" : "Polygon",
+      "url": "https://polygon-rpc.com",
+      "chainId": 137,
+      "faucet": "",
+      "tokenName": "MATIC",
+      "retry" : 2
     }
   ]
 }

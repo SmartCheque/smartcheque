@@ -58,6 +58,12 @@ contract Bank is IBank {
 
     ////////////////////////////////// Balance ////////////////////////////////
 
+    function getBalance() public view returns (uint256){
+      return customerList[msg.sender].balance;
+    }
+
+
+
     function addBalance() payable public {
     customerList[msg.sender].balance = customerList[msg.sender].balance + msg.value;
   }
@@ -75,9 +81,13 @@ contract Bank is IBank {
 
     //////////////////////////////// Stake /////////////////////////////////////
 
+    function getStake() public view returns (uint256){
+      return customerList[msg.sender].stake;
+    }
+
     function addStake(uint256 _amount) payable public {
       require(_amount <= customerList[msg.sender].balance, 'not enought');
-      customerList[msg.sender].balance = customerList[msg.sender].balance - _amount;
+      customerList[msg.sender].balance = customerList[msg.sender].balance + msg.value - _amount;
       customerList[msg.sender].stake = customerList[msg.sender].stake + msg.value + _amount;
     }
 

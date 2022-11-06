@@ -43,14 +43,15 @@ contract BankList {
     }
 
   ///////////////////////////////////// BankList ////////////////////////////////////////
-  mapping(address => BankInfo) private bankListFromCertificate;
-  mapping(uint64 => address) private bankAddressFromId;
+  mapping(IBank => BankInfo) private bankListFromAddress;
+  mapping(uint64 => IBank) private bankAddressFromId;
+  mapping(address => IBank) private bankAddressFromCertificate;
   uint64 bankId = 0;
 
   function getCertificateList() public view returns (BankCertificate[] memory){
     BankCertificate[] memory certificateList = new BankCertificate[](bankId);
     for (uint64 i = 0; i < bankId; i++){
-      BankInfo storage bankInfo = bankListFromCertificate[bankAddressFromId[i]];
+      BankInfo storage bankInfo = bankListFromAddress[bankAddressFromId[i]];
       certificateList[i] = BankCertificate(
         bankInfo.bankContract.getName(),
         bankInfo.bankContract.getCertificate(),
@@ -62,7 +63,7 @@ contract BankList {
   }
 
   function getBankContract(address _certificate) public view returns (IBank){
-    return bankListFromCertificate[_certificate].bankContract;
+    return bankAddressFromCertificate[_certificate];
   }
 
   ///////////////////////////////////// Register ////////////////////////////////////////
@@ -72,16 +73,17 @@ contract BankList {
     require(msg.value >= registerFee, 'Not enought fee to register');
     BankInfo memory bankInfo = BankInfo(_bankContract, 50);
     address cert = bankInfo.bankContract.getCertificate();
-    bankAddressFromId[bankId] = cert;
-    bankListFromCertificate[cert] = bankInfo;
+    bankAddressFromCertificate[cert] = _bankContract;
+    bankAddressFromId[bankId] = _bankContract;
+    bankListFromAddress[_bankContract] = bankInfo;
     bankId = bankId + 1;
   }
 
 
   ////////////////////////////////////// Grade ////////////////////////////////////////
 
-  function updateGrade (address _certificate, uint8 _grade) public _isOwner {
-      bankListFromCertificate[_certificate].grade = _grade;
+  function updateGrade (IBank _bankContract, uint8 _grade) public _isOwner {
+      bankListFromAddress[_bankContract].grade = _grade;
   }
 
 }

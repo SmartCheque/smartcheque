@@ -43,11 +43,11 @@ const ContractAdmin = (props : {
     })[0]
     let button
     if (contract && !contract.pending && !contract.address && isAdmin) {
-      button = (<Button onClick={() => {dispatch(deployContract({
+      button = (<><br/><Button onClick={() => {dispatch(deployContract({
         chainId : props.network.chainId,
         name : _name,
         hash : getHashContractBankList().toHexString(),
-      }))}}>Deploy</Button>)
+      }))}}>Deploy</Button></>)
     }
     let text
     let signer = props.tMWallet.getTMNetwork(props.network.chainId)?.transactionManager.signer

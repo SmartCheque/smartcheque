@@ -10,6 +10,7 @@ import {
   getHashContractBankList,
   getHashContractBank,
   getContractBankList,
+  getContractBank,
 } from 'contract/contract'
 import { getPrivateKey } from '../utils/privateKey'
 
@@ -72,6 +73,7 @@ export const getContract: RequestHandler = async (req, res) => {
 }
 
 export const createBank: RequestHandler = async (req, res) => {
+  const chainId = req.body.chainId
   try {
     Contract.findOne({
       where: {
@@ -94,11 +96,51 @@ export const createBank: RequestHandler = async (req, res) => {
             wallet,
           )
           console.log('Bank contract created', contractBank.address)
+          Contract.create({
+            chainId,
+            hash: hash.toHexString(),
+            name: 'Bank' + contract.address,
+            address: contract.address,
+          })
           const fee = await contractBankList.registerFee()
           const tx = await contractBankList.registerBank(contractBank.address, { value: fee })
           await tx.wait()
           return res.send({
             address: contractBank.address
+          })
+        }
+        return res.status(403).send({ message: "Network not found" })
+      }
+      return res.status(403).send({ message: "Contract not found" })
+    })
+  } catch (err: any) {
+    res.status(500).send({ message: err.message })
+  }
+}
+
+export const getAllowance: RequestHandler = async (req, res) => {
+  try {
+    Contract.findOne({
+      where: {
+        chainId: req.body.chainId,
+        hash: getHashContractBankList().toHexString(),
+        name: 'Bank' + req.body.contractAddress,
+      }
+    }).then(async (contract) => {
+      if (contract) {
+        const network = getNetworkFromChainId(req.body.chainId)
+        if (network) {
+          const privateKeys = getPrivateKey(req.body.chainId)
+          const wallet = getWallet(network, privateKeys)
+          const contractBank = getContractBank(contract.address, wallet)
+          const stake = await contractBank.getCustomerStake(req.body.customer) as BigNumber
+          const allowance = stake.div(2)
+          const message = req.body.chainId + '|' + req.body.customer + '| ' + allowance.toString + '|' + 'TEST'
+          const signature = await wallet.signMessage(message)
+          const customerCertificate = wallet.address + '|' + message + '|' + signature
+          return res.send({
+            allowance: allowance,
+            customerCertificate: customerCertificate
           })
         }
         return res.status(403).send({ message: "Network not found" })
