@@ -1,4 +1,4 @@
-// contracts/NFT.sol
+// contracts/BankList.sol
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.8.0;
 
@@ -7,6 +7,7 @@ import { IBank } from './IBank.sol';
 struct BankCertificate {
   string name;
   address certificate;
+  IBank bankContract;
   uint8 grade;
 }
 
@@ -17,13 +18,11 @@ struct BankInfo {
 
 contract BankList {
   constructor(
-      uint256 _contractHash,
-      uint256 _registerFee
+      uint256 _contractHash
   )
   {
       owner = payable( msg.sender);
       contractHash = _contractHash;
-      registerFee = _registerFee;
    }
 
   ////////////////////////////////////// Hash ///////////////////////////////////////////
@@ -45,22 +44,19 @@ contract BankList {
 
   ///////////////////////////////////// BankList ////////////////////////////////////////
   mapping(address => BankInfo) private bankListFromCertificate;
-  address[] private bankAddressList;
+  mapping(uint64 => address) private bankAddressFromId;
   uint64 bankId = 0;
 
-  function getCertificateList(uint8 minGrade) public view returns (BankCertificate[] memory){
-    BankCertificate[] memory certificateList;
-    uint64 j = 0;
+  function getCertificateList() public view returns (BankCertificate[] memory){
+    BankCertificate[] memory certificateList = new BankCertificate[](bankId);
     for (uint64 i = 0; i < bankId; i++){
-      bankInfo = bankListFromCertificate[bankAddressList[i]]
-      if (bankInfo.grade > minGrade){
-          certificateList[j] = BankCertificate(
-            bankInfo.bankContract.getName(),
-            bankInfo.bankContract.getCertificate(),
-            bankInfo.grade
-          );
-          j = j + 1;
-      }
+      BankInfo storage bankInfo = bankListFromCertificate[bankAddressFromId[i]];
+      certificateList[i] = BankCertificate(
+        bankInfo.bankContract.getName(),
+        bankInfo.bankContract.getCertificate(),
+        bankInfo.bankContract,
+        bankInfo.grade
+      );
     }
     return certificateList;
   }
@@ -70,13 +66,14 @@ contract BankList {
   }
 
   ///////////////////////////////////// Register ////////////////////////////////////////
-  uint256 public registerFee;
+  uint256 public registerFee = 0;
 
   function registerBank(IBank _bankContract) public payable {
-    require(msg.value > registerFee, 'Not enought fee to register');
+    require(msg.value >= registerFee, 'Not enought fee to register');
     BankInfo memory bankInfo = BankInfo(_bankContract, 50);
-    bankList.push(bankInfo);
-    bankListFromCertificate[bankInfo.bankContract.getCertificate()] = bankInfo;
+    address cert = bankInfo.bankContract.getCertificate();
+    bankAddressFromId[bankId] = cert;
+    bankListFromCertificate[cert] = bankInfo;
     bankId = bankId + 1;
   }
 

@@ -33,7 +33,7 @@ const appInit = () => {
   // simple route
   app.get("/", (_req, res) => {
     res.json({
-      message: "Welcome to nfteverywhere backend."
+      message: "Welcome to smartchain backend."
     });
   });
 

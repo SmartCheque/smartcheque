@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "ethers-network": "file:../ethers-network",
     "@babel/core": "^7.16.0",
     "@ensdomains/ensjs": "^2.1.0",
     "@ethersproject/providers": "^5.7.1",

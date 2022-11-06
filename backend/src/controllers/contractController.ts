@@ -1,9 +1,16 @@
+import { BigNumber } from 'ethers'
 import db from '../models'
 const Contract = db.contract
 import { RequestHandler } from 'express'
 import { getNetworkFromChainId } from 'ethers-network/network'
 import { getWallet } from 'ethers-network/network'
-import { createContractNFT, getHashContractNFT, getContractNFT } from 'contract/contract'
+import {
+  createContractBankList,
+  createContractBank,
+  getHashContractBankList,
+  getHashContractBank,
+  getContractBankList,
+} from 'contract/contract'
 import { getPrivateKey } from '../utils/privateKey'
 
 export const deployContract: RequestHandler = async (req, res) => {
@@ -13,13 +20,12 @@ export const deployContract: RequestHandler = async (req, res) => {
     if (network) {
       const privateKeys = getPrivateKey(req.body.chainId)
       const wallet = getWallet(network, privateKeys)
-      const hash = getHashContractNFT()
+      const hash = BigNumber.from(req.body.hash)
       const name = req.body.name
       let contract
       switch (name) {
-        case 'NFT':
-          contract = await createContractNFT(
-            wallet.address,
+        case 'BankList':
+          contract = await createContractBankList(
             hash,
             wallet,
           )
@@ -39,6 +45,7 @@ export const deployContract: RequestHandler = async (req, res) => {
     }
   }
   catch (err: any) {
+    console.error(err)
     res.status(500).send({ message: err.message })
   }
 }
@@ -64,13 +71,13 @@ export const getContract: RequestHandler = async (req, res) => {
   }
 }
 
-export const createNFT: RequestHandler = async (req, res) => {
+export const createBank: RequestHandler = async (req, res) => {
   try {
     Contract.findOne({
       where: {
         chainId: req.body.chainId,
-        hash: getHashContractNFT().toHexString(),
-        name: 'NFT',
+        hash: getHashContractBankList().toHexString(),
+        name: 'BankList',
       }
     }).then(async (contract) => {
       if (contract) {
@@ -78,11 +85,20 @@ export const createNFT: RequestHandler = async (req, res) => {
         if (network) {
           const privateKeys = getPrivateKey(req.body.chainId)
           const wallet = getWallet(network, privateKeys)
-          const contractNFT = getContractNFT(contract.address, wallet)
-          const tx = await contractNFT.createNFT(req.body.owner, req.body.uri)
+          const contractBankList = getContractBankList(contract.address, wallet)
+          const hash = getHashContractBank()
+          const name = req.body.name
+          const contractBank = await createContractBank(
+            name,
+            hash,
+            wallet,
+          )
+          console.log('Bank contract created', contractBank.address)
+          const fee = await contractBankList.registerFee()
+          const tx = await contractBankList.registerBank(contractBank.address, { value: fee })
           await tx.wait()
           return res.send({
-            message: 'NFT created'
+            address: contractBank.address
           })
         }
         return res.status(403).send({ message: "Network not found" })

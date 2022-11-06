@@ -4,13 +4,20 @@ import { getNetworkList } from 'ethers-network/network'
 
 import { Row, Col} from 'react-bootstrap'
 
-const ContractAdminSection = ()=> {
+import { TMWallet } from 'ethers-network/transaction'
+
+const ContractAdminSection = (props: {
+  tMWallet: TMWallet,
+})=> {
 
   const networkList = getNetworkList()
 
   const render = () => {
     return networkList.map(network => {
-      return <Col lg={2} key={network.chainId}><ContractAdmin network={network}/></Col>
+      return <Col lg={2} key={network.chainId}><ContractAdmin
+      network={network}
+      tMWallet={props.tMWallet}
+      /></Col>
     })
   }
 

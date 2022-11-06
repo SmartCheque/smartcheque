@@ -1,4 +1,4 @@
-// contracts/NFT.sol
+// contracts/Bank.sol
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.8.0;
 
@@ -13,14 +13,14 @@ struct Customer {
   uint256 allowance;
 }
 
-contract BankList is IBank {
+contract Bank is IBank {
 
 
   mapping(address => Customer) private customerList;
 
   constructor(
-      uint256 _contractHash,
-      string memory _name
+      string memory _name,
+      uint256 _contractHash
   )
   {
       owner = payable( msg.sender);
@@ -111,9 +111,10 @@ contract BankList is IBank {
     bytes32 _customer_r,
     bytes32 _customer_s
   ) public {
-
+    string memory prefix = "\x19Ethereum Signed Message:\n32";
     //Check duplicate
     bytes32 hashMessage = keccak256(abi.encodePacked(
+                prefix,
                 _customerAddress,
                 _merchantAddress,
                 _amount,
@@ -124,6 +125,7 @@ contract BankList is IBank {
 
     //chech signature merchant
     hashMessage = keccak256(abi.encodePacked(
+                prefix,
                 _amount,
                 _time
             ));
@@ -136,6 +138,7 @@ contract BankList is IBank {
 
     //chech signature customer
     hashMessage = keccak256(abi.encodePacked(
+                prefix,
                 owner, //bank certificate
                 _merchantAddress,
                 _amount,

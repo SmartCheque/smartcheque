@@ -7,7 +7,7 @@ import BuySection from './BuySection'
 import { TMWallet } from 'ethers-network/transaction'
 
 const AdminSection = (props: {
-  tMWallet: TMWallet | undefined,
+  tMWallet: TMWallet,
   section : string | undefined,
 })=> {
 
@@ -16,7 +16,7 @@ const AdminSection = (props: {
       case 'user':
       return <UserSection/>
       case 'contractAdmin':
-      return <ContractAdminSection/>
+      return <ContractAdminSection tMWallet={props.tMWallet}/>
       case 'smartCheque':
       return <ChequeSection tMWallet={props.tMWallet} />
       case 'buy':

@@ -39,6 +39,11 @@ export const deployContract = axiosThunkData<{ chainId: number, name: string, ha
   API_URL + "contract/deploy",
 )
 
+export const createBank = axiosThunkData<{ chainId: number, name: string }>(
+  "bank/create",
+  API_URL + "bank/create",
+)
+
 const filterContract = (state: { contract: Array<any> }, action: any) => {
   return state.contract.filter(_contract => {
     return _contract.chainId === action.meta.arg.chainId && _contract.name === action.meta.arg.name && _contract.hash === action.meta.arg.hash

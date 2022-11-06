@@ -5,10 +5,10 @@
   "TransactionManager" : "ethers-network/transaction",
   "file": [
     {
-      "contract": "NFT",
+      "contract": "Bank",
       "arg": [
         {
-          "name": "_owner",
+          "name": "_name",
           "type": "string"
         },
         {
@@ -16,14 +16,10 @@
           "type": "ethers.BigNumber"
         }
       ]
-    }
+    },
     {
       "contract": "BankList",
       "arg": [
-        {
-          "name": "_owner",
-          "type": "string"
-        },
         {
           "name": "_contractHash",
           "type": "ethers.BigNumber"

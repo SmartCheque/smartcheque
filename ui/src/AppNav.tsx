@@ -25,7 +25,7 @@ const AppNav = (props: {
       expand="lg"
       >
     <Container fluid>
-      <Navbar.Brand onClick={() => props.setSection('wallet')}>NFTEverywhere</Navbar.Brand>
+      <Navbar.Brand onClick={() => props.setSection('wallet')}>SmartCheque</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
