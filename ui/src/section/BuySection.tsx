@@ -7,7 +7,7 @@ import { useAppSelector } from '../hooks'
 import { TMWallet } from 'ethers-network/transaction'
 import { QrReader } from 'react-qr-reader';
 import QRCode from "react-qr-code";
-import { utils } from 'ethers';
+import { utils, BigNumber } from 'ethers';
 
 
 import Scan from '../containers/Scan';
@@ -15,11 +15,14 @@ import Scan from '../containers/Scan';
 import { useState } from 'react';
 //import { ActionsContext } from '../contexts/context';
 
-const ChequeSection = (props: {
+const BuySection = (props: {
   tMWallet: TMWallet | undefined,
 }) => {
   const [actions, setActions] = useState<any>(null);
-  const [data, setData] = useState('No result');
+  const [qrData, setQrData] = useState('');
+  const [qrMessage, setQrMessage] = useState('No result');
+  const [payMessage, setPayMessage] = useState('No payment');
+  
 
   const {scan, write} = actions || {};
 
@@ -29,6 +32,7 @@ const ChequeSection = (props: {
     setActions({...actions});
   }
 
+  const wallet = useAppSelector((state) => state.walletSlice.wallet);
 
   const chainId = 42261;
 
@@ -66,11 +70,34 @@ console.log(props.tMWallet?.getTMNetwork(chainId));
   };
   _demo(payRequest);
 
+  //const [actions, setActions] = useState<any>(null);
+
+  const craftPayInfo = (qrData:any) => {
+    const myAddr = wallet.address;
+    const bankAddr = cachedBanks[0]; // default choice
+    const [merchant, merchantAddr, merchantStamp, bankSig, price, priceTime, priceTimeSig] = qrData.split('|');
+    return 'You (' + myAddr + ') will send ' + price + ' to ' + merchantAddr + ' using bank ' + bankAddr;
+  };
+  const craftSignedPayment = async (qrData:any) => {
+if (!wallet.address) return;
+    const myAddr = wallet.address;
+    const bankAddr = cachedBanks[0]; // default choice
+    const [merchant, merchantAddr, merchantStamp, bankSig, price, priceTime, priceTimeSig] = qrData.split('|');
+    const tstampHex = utils.hexZeroPad(utils.hexValue(BigNumber.from(parseInt('' + (new Date()).valueOf() / 1000))), 32);
+    const amountHex = utils.hexZeroPad(utils.hexValue(utils.parseEther("3.25")), 32);
+
+    // spending message: spender|bank|merchant|tstamp|amount
+    const bytes = utils.concat([myAddr, bankAddr, merchantAddr, tstampHex, amountHex].map(h => utils.arrayify(h)));
+    console.log(bytes);
+    return await props.tMWallet?.getTMNetwork(chainId)?.transactionManager.signer.signMessage(bytes)
+  };
+  craftSignedPayment(payRequest__demo).then(res => console.log('signed payment message: ', res));
+
   return (
       <div className="App">
-        <h2>Hello Customer</h2>
+        <h2>Hello Customer {wallet.address}</h2>
         <h2>Cached Bank Address/Pubkey</h2>
-        <ol><li>{cachedBanks[0]}</li></ol>
+        <ol><li>{cachedBanks[0]} (default)</li></ol>
 
         <h2>Merchant Offer</h2>
 
@@ -85,7 +112,7 @@ console.log(props.tMWallet?.getTMNetwork(chainId));
         </div>
 
         <QrReader
-          constraints={{ facingMode: 'environment' /*'user'*/ }}
+          constraints={{ facingMode: /*'environment'*/ 'user' }}
           onResult={(result, error) => {
             if (!!result) {
               const res = result.toString();
@@ -94,9 +121,10 @@ console.log(props.tMWallet?.getTMNetwork(chainId));
               console.log(bankSigner);
   
               if (bankSigner == cachedBanks[0]) {
-                setData('OK!! ' + res + ', signed by ' + bankSigner);
+                setQrData(res);
+                setQrMessage('OK!! ' + res + ', signed by ' + bankSigner);
               } else {
-                setData('BAD SIGNATURE from ' + bankSigner + ': ' + res);
+                setQrMessage('BAD SIGNATURE from ' + bankSigner + ': ' + res);
               }
 
               const priceSigner = utils.verifyMessage(price + '|' + priceTime, priceTimeSig);
@@ -113,11 +141,17 @@ console.log(props.tMWallet?.getTMNetwork(chainId));
           }}
           /*style={{ width: '100%' }}*/
         />
-        <p>{data}</p>
+        <p>QR status: {qrMessage}</p>
+        <p>raw: <code>{qrData}</code></p>
+
+        <div>
+          <h2>Confirm payment</h2>
+          { qrData === '' ? '' : craftPayInfo(qrData) }
+        </div>
 
       </div>
   );
 
 }
 
-export default ChequeSection
+export default BuySection
