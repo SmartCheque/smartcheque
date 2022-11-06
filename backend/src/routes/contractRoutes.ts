@@ -29,7 +29,7 @@ const contractRoute = function(app: express.Application) {
 
   app.post(
     "/api/contract/get",
-    [verifyToken, isAdmin],
+    [],
     getContract
   );
 
