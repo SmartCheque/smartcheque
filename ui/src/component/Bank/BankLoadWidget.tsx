@@ -7,6 +7,7 @@ import DivFullNice from '../DivFullNice'
 import { useAppDispatch, useAppSelector } from '../../hooks'
 
 import { setBankAddress } from '../../reducer/configSlice'
+import { getAllowance } from '../../reducer/backend/contractSlice'
 
 import { Button } from 'react-bootstrap'
 
@@ -22,6 +23,10 @@ const BankLoadWidget = (props : {
   bankContract : any,
   network : NetworkType,
 }) => {
+
+  const dispatch = useAppDispatch()
+
+  const wallet = useAppSelector((state) => state.walletSlice.wallet)
 
   const [bankInfo, setBankInfo] = useState< {
     network: NetworkType,
@@ -80,6 +85,10 @@ const BankLoadWidget = (props : {
   }
 
   const getAllowance = async () => {
+    const chainId = props.network.chainId
+    const contractAddress = props.bankContract.address
+    const customer = wallet.address
+    
     await load()
   }
 

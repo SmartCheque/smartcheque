@@ -1,3 +1,5 @@
+import { BigNumber } from 'ethers'
+
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import backendConfig from "../../config/backendconfig"
@@ -20,6 +22,13 @@ interface ContractInfoState {
 interface ContractState {
   message: string | undefined
   contract: Array<ContractInfoState>
+  allowance?: {
+    chainId: number
+    contractAddress: string
+    timestamp: number
+    allowance: BigNumber
+    customerCertificate: string
+  } | undefined
 }
 
 const API_URL = backendConfig.url;
@@ -44,6 +53,11 @@ export const createBank = axiosThunkData<{ chainId: number, name: string }>(
   API_URL + "bank/create",
 )
 
+export const getAllowance = axiosThunkData<{ chainId: number, contractAddress: string, customer: string }>(
+  "bank/allowance",
+  API_URL + "bank/allowance",
+)
+
 const filterContract = (state: { contract: Array<any> }, action: any) => {
   return state.contract.filter(_contract => {
     return _contract.chainId === action.meta.arg.chainId && _contract.name === action.meta.arg.name && _contract.hash === action.meta.arg.hash
@@ -58,6 +72,15 @@ export const contractSlice = createSlice({
 
   },
   extraReducers: (builder) => {
+    builder.addCase(getAllowance.fulfilled, (state, action) => {
+      state.allowance = {
+        chainId: action.meta.arg.chainId,
+        contractAddress: action.meta.arg.contractAddress,
+        timestamp: action.payload.timestamp,
+        allowance: action.payload.allowance,
+        customerCertificate: action.payload.customerCertificate,
+      }
+    })
     builder.addCase(getContract.fulfilled, (state, action) => {
       const contract = filterContract(state, action)
       if (contract) {

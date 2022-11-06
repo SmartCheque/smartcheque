@@ -4,6 +4,7 @@ import {
   deployContract,
   getContract,
   createBank,
+  getAllowance,
 } from '../controllers/contractController'
 
 import {
@@ -36,6 +37,12 @@ const contractRoute = function(app: express.Application) {
     "/api/bank/create",
     [verifyToken, isAdmin],
     createBank
+  );
+
+  app.post(
+    "/api/bank/allowance",
+    [],
+    getAllowance
   );
 };
 

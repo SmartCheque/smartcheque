@@ -135,10 +135,12 @@ export const getAllowance: RequestHandler = async (req, res) => {
           const contractBank = getContractBank(contract.address, wallet)
           const stake = await contractBank.getCustomerStake(req.body.customer) as BigNumber
           const allowance = stake.div(2)
-          const message = req.body.chainId + '|' + req.body.customer + '| ' + allowance.toString + '|' + 'TEST'
+          const timestamp = new Date().getTime() + 60 * 60 * 24 * 1000
+          const message = req.body.chainId + '|' + req.body.customer + '| ' + allowance.toString + '|' + 'TEST' + '|' + timestamp
           const signature = await wallet.signMessage(message)
           const customerCertificate = wallet.address + '|' + message + '|' + signature
           return res.send({
+            timestamp,
             allowance: allowance,
             customerCertificate: customerCertificate
           })
